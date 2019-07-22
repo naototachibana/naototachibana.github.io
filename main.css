@@ -1,0 +1,44 @@
+#main img{
+max-width: initial;
+}
+.panorama{
+overflow: auto;
+width:710px;
+height: 526px;
+}
+img.pano{
+width:2000px;
+height:500px;
+}
+@media screen and (min-width:992px) and (max-width:1199px){
+.panorama{
+overflow: auto;
+max-width:530px;
+max-height:526px;
+}
+}
+@media screen and (min-width:768px) and (max-width:991px){
+.panorama{
+overflow: auto;
+max-width:676px;
+max-height:526px;
+}
+}
+@media screen and (max-width:767px){
+.panorama{
+overflow: auto;
+max-width:100%;
+max-height:526px;
+}
+}
+@media screen and (max-width:599px){
+.panorama{
+overflow: auto;
+max-width:100%;
+max-height:376px;
+}
+img.pano{
+width:1400px;
+height:350px !important;
+}
+}
