@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <link rel="stylesheet" type="text/css" href="./main.css">
-    </head>
-    <body>
-      <<div class="panorama">
-        <img class="pano" src="DSC01206.jpg" alt="パノラマ榊パーク" width="1500" height="1000" />
-      </div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>時間の表示</title>
+</head>
+<body>
+    <h1 id="time"></h1>
+    <script>
+    time();
+    function time(){
+        var now = new Date();
+        document.getElementById("time").innerHTML = now.toLocaleTimeString();
+    }
+    setInterval('time()',1000);
+    </script>
+</body>
 </html>
