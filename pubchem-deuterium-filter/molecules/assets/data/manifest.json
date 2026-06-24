@@ -1,0 +1,20 @@
+{
+  "dataset": "PubChem explicit deuterium compounds",
+  "source": "local slice from /home/tachibana/agent-workbench/chem_other/pubchem-deuterium-filter/results/deuterium_only.tsv",
+  "page_size": 10,
+  "shard_size": 20,
+  "shards_per_page": 2,
+  "total_records_available_locally": 20,
+  "documented_total_records": 559150,
+  "records_published_in_demo": 20,
+  "pages_published_in_demo": 2,
+  "shards": [
+    {
+      "id": 0,
+      "path": "assets/data/shard-00000.json",
+      "start_index": 0,
+      "count": 20
+    }
+  ],
+  "note": "Proof-of-concept shard only. Full TSV and bulk results are not published."
+}

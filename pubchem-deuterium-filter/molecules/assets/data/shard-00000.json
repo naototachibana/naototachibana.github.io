@@ -1,0 +1,162 @@
+[
+  {
+    "cid": 12669,
+    "deuterium_atom_count": 1,
+    "canonical_isomeric_smiles": "[H]C([H])([H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "11980",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/12669"
+  },
+  {
+    "cid": 13517,
+    "deuterium_atom_count": 9,
+    "canonical_isomeric_smiles": "[2H]C([2H])([2H])C(Cl)(C([2H])([2H])[2H])C([2H])([2H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "12775",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/13517"
+  },
+  {
+    "cid": 20836,
+    "deuterium_atom_count": 1,
+    "canonical_isomeric_smiles": "[H]C([H])([H])C([H])([H])C([H])([H])C([H])([H])O[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "19570",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20836"
+  },
+  {
+    "cid": 20837,
+    "deuterium_atom_count": 1,
+    "canonical_isomeric_smiles": "[H]C([H])([H])C([H])([H])C([H])(O[2H])C([H])([H])[H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "19571",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20837"
+  },
+  {
+    "cid": 24523,
+    "deuterium_atom_count": 2,
+    "canonical_isomeric_smiles": "[2H][2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "22945",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24523"
+  },
+  {
+    "cid": 24602,
+    "deuterium_atom_count": 2,
+    "canonical_isomeric_smiles": "[2H]O[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "23017",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24602"
+  },
+  {
+    "cid": 27870,
+    "deuterium_atom_count": 50,
+    "canonical_isomeric_smiles": "[2H]C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "25963",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/27870"
+  },
+  {
+    "cid": 40913,
+    "deuterium_atom_count": 2,
+    "canonical_isomeric_smiles": "[H]OC1=C([2H])C2=C(C([H])=C1[2H])C1([H])C([H])([H])C([H])([H])C3(C([H])([H])[H])C([H])(C([H])([H])C([H])([H])[C@]3([H])O[H])C1([H])C([H])([H])C2([H])[H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "37746",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/40913"
+  },
+  {
+    "cid": 47750,
+    "deuterium_atom_count": 18,
+    "canonical_isomeric_smiles": "[2H]C([2H])([2H])N(C1=NC(N(C([2H])([2H])[2H])C([2H])([2H])[2H])=NC(N(C([2H])([2H])[2H])C([2H])([2H])[2H])=N1)C([2H])([2H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "43955",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/47750"
+  },
+  {
+    "cid": 49930,
+    "deuterium_atom_count": 3,
+    "canonical_isomeric_smiles": "[H]C([H])([H])C(=O)OC([H])([H])N(N=O)C([2H])([2H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "45685",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/49930"
+  },
+  {
+    "cid": 50540,
+    "deuterium_atom_count": 3,
+    "canonical_isomeric_smiles": "[H]/C(=C(/C([H])([H])[H])C([2H])([2H])[2H])C([H])([H])[H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "46223",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50540"
+  },
+  {
+    "cid": 50541,
+    "deuterium_atom_count": 3,
+    "canonical_isomeric_smiles": "[H]/C(=C(/C([H])([H])[H])C([2H])([2H])[2H])C([H])([H])C([H])([H])[H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "46224",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50541"
+  },
+  {
+    "cid": 50542,
+    "deuterium_atom_count": 3,
+    "canonical_isomeric_smiles": "[H]/C(=C(/C([H])([H])[H])C([2H])([2H])[2H])C([H])(C([H])([H])[H])C([H])([H])[H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "46225",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50542"
+  },
+  {
+    "cid": 53360,
+    "deuterium_atom_count": 12,
+    "canonical_isomeric_smiles": "[2H]C1=C([2H])C([2H])=C2C(=C1[2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C2([2H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "48647",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/53360"
+  },
+  {
+    "cid": 71502,
+    "deuterium_atom_count": 1,
+    "canonical_isomeric_smiles": "[2H]OC(=O)C(F)(F)F",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "65351",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71502"
+  },
+  {
+    "cid": 71568,
+    "deuterium_atom_count": 4,
+    "canonical_isomeric_smiles": "[2H]OC([2H])([2H])[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "65413",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71568"
+  },
+  {
+    "cid": 71583,
+    "deuterium_atom_count": 1,
+    "canonical_isomeric_smiles": "[2H]C(Cl)(Cl)Cl",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "65420",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71583"
+  },
+  {
+    "cid": 71601,
+    "deuterium_atom_count": 6,
+    "canonical_isomeric_smiles": "[2H]C1=C([2H])C([2H])=C([2H])C([2H])=C1[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "65432",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71601"
+  },
+  {
+    "cid": 71603,
+    "deuterium_atom_count": 5,
+    "canonical_isomeric_smiles": "[H]OC(=O)C1=C([2H])C([2H])=C([2H])C([2H])=C1[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "65434",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71603"
+  },
+  {
+    "cid": 74861,
+    "deuterium_atom_count": 8,
+    "canonical_isomeric_smiles": "[2H]C1=C([2H])C([2H])=C(C([2H])([2H])[2H])C([2H])=C1[2H]",
+    "source_file": "Compound_000000001_000500000.sdf.gz",
+    "record_index": "68295",
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/74861"
+  }
+]
