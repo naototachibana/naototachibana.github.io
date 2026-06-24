@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubChem Deuterium — Interactive 3D Viewers</title>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #f7f8fa;
+  color: #1a1a2e;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h1 { font-size: 1.6em; margin-bottom: 6px; }
+.subtitle { color: #555; margin-bottom: 24px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.viewer-container {
+  width: 100%;
+  height: 340px;
+  background: #fff;
+  position: relative;
+}
+.viewer-container .loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.9em;
+  z-index: 1;
+  pointer-events: none;
+}
+.viewer-container .error-msg {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #c0392b;
+  font-size: 0.85em;
+  text-align: center;
+  padding: 20px;
+  z-index: 2;
+}
+.card-body {
+  padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.card-body h2 { font-size: 1.1em; }
+.card-body .meta { font-size: 0.85em; color: #666; line-height: 1.5; }
+.card-body .smiles {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.78em;
+  background: #f0f0f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+.card-body a { color: #2563eb; text-decoration: none; }
+.card-body a:hover { text-decoration: underline; }
+.d-badge {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+  font-size: 0.8em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.tag-2d {
+  display: inline-block;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.7em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+}
+footer {
+  margin-top: 30px;
+  font-size: 0.8em;
+  color: #888;
+  text-align: center;
+}
+footer a { color: #555; }
+</style>
+</head>
+<body>
+<h1>PubChem Deuterium — 3D Molecule Viewer</h1>
+<p class="subtitle">
+  Rotatable 3D views of explicitly deuterium-labelled PubChem compounds extracted by the
+  <a href="https://github.com/naototachibana/pubchem-deuterium-filter">pubchem-deuterium-filter</a> pipeline.
+  Drag to rotate, scroll to zoom.
+</p>
+
+<div class="cards" id="cards"></div>
+
+<footer>
+  <p>
+    Data from <a href="https://pubchem.ncbi.nlm.nih.gov/">PubChem</a>.
+    Visualisation powered by <a href="https://3Dmol.org/">3Dmol.js</a>.
+  </p>
+  <p style="margin-top: 4px;">
+    <a href="https://github.com/naototachibana/pubchem-deuterium-filter">pubchem-deuterium-filter</a>
+    &middot;
+    <a href="https://naototachibana.github.io/">Home</a>
+  </p>
+</footer>
+
+<script>
+const MOLECULES = [
+  {
+    cid: 24523,
+    h2Count: 2,
+    label: "Deuterium gas (D\u2082)",
+    smiles: "[2H][2H]",
+    has3D: false,
+    pubchemUrl: "https://pubchem.ncbi.nlm.nih.gov/compound/24523"
+  },
+  {
+    cid: 24602,
+    h2Count: 2,
+    label: "Heavy water (D\u2082O)",
+    smiles: "[2H]O[2H]",
+    has3D: true,
+    pubchemUrl: "https://pubchem.ncbi.nlm.nih.gov/compound/24602"
+  },
+  {
+    cid: 12669,
+    h2Count: 1,
+    label: "Methane-d1",
+    smiles: "[H]C([H])([H])[2H]",
+    has3D: true,
+    pubchemUrl: "https://pubchem.ncbi.nlm.nih.gov/compound/12669"
+  },
+  {
+    cid: 13517,
+    h2Count: 9,
+    label: "Perdeuterated tert-butyl chloride ([2H9]-tert-butyl chloride)",
+    smiles: "[2H]C([2H])([2H])C(Cl)(C([2H])([2H])[2H])C([2H])([2H])[2H]",
+    has3D: true,
+    pubchemUrl: "https://pubchem.ncbi.nlm.nih.gov/compound/13517"
+  },
+  {
+    cid: 27870,
+    h2Count: 50,
+    label: "Perdeuterated tetracosane (C\u2082\u2084D\u2085\u2080)",
+    smiles: "50\u00d7 [2H]",
+    has3D: false,
+    pubchemUrl: "https://pubchem.ncbi.nlm.nih.gov/compound/27870"
+  },
+  {
+    cid: 40913,
+    h2Count: 2,
+    label: "Position-specific steroid-d2 (\u03b2-Estradiol-d2)",
+    smiles: "Steroid with 2 positional \u00B2H",
+    has3D: true,
+    pubchemUrl: "https://pubchem.ncbi.nlm.nih.gov/compound/40913"
+  }
+];
+
+function createCard(mol) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const viewer = document.createElement("div");
+  viewer.className = "viewer-container";
+  viewer.id = "viewer-" + mol.cid;
+
+  const loader = document.createElement("div");
+  loader.className = "loading";
+  loader.textContent = "Loading molecule\u2026";
+  viewer.appendChild(loader);
+
+  const errMsg = document.createElement("div");
+  errMsg.className = "error-msg";
+  errMsg.id = "error-" + mol.cid;
+  errMsg.innerHTML = "Failed to load structure.<br>"
+    + '<a href="' + mol.pubchemUrl + '" target="_blank">View on PubChem \u2192</a>';
+  viewer.appendChild(errMsg);
+
+  const body = document.createElement("div");
+  body.className = "card-body";
+
+  const titleLine = document.createElement("h2");
+  titleLine.innerHTML = "CID " + mol.cid + " <span class=\"d-badge\">"
+    + mol.h2Count + " \u00B2H</span>"
+    + (mol.has3D ? "" : " <span class=\"tag-2d\">2D layout</span>");
+  body.appendChild(titleLine);
+
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  meta.innerHTML = "<strong>" + mol.label + "</strong>";
+  body.appendChild(meta);
+
+  const smi = document.createElement("div");
+  smi.className = "smiles";
+  smi.textContent = mol.smiles;
+  body.appendChild(smi);
+
+  const link = document.createElement("div");
+  link.className = "meta";
+  link.innerHTML = '<a href="' + mol.pubchemUrl + '" target="_blank">View on PubChem \u2192</a>';
+  body.appendChild(link);
+
+  card.appendChild(viewer);
+  card.appendChild(body);
+  return card;
+}
+
+function initViewer(cid, has3D) {
+  const el = document.getElementById("viewer-" + cid);
+  if (!el) return;
+
+  // Build the SDF path: local asset
+  const sdfUrl = "assets/sdf/" + cid + ".sdf";
+
+  try {
+    const viewer = $3Dmol.createViewer(el, {
+      backgroundColor: "white",
+      antialias: true
+    });
+
+    const style = has3D
+      ? { stick: { radius: 0.15, colorscheme: "Jmol" } }
+      : { stick: { radius: 0.15, colorscheme: "Jmol" } };
+
+    viewer.addModel(new Promise(function(resolve, reject) {
+      fetch(sdfUrl)
+        .then(function(r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.text();
+        })
+        .then(function(sdfData) {
+          viewer.addModel(sdfData, "sdf");
+          viewer.setStyle({}, style);
+          viewer.zoomTo();
+          viewer.render();
+          // Remove loading indicator
+          var loaders = el.getElementsByClassName("loading");
+          for (var i = 0; i < loaders.length; i++) loaders[i].style.display = "none";
+          resolve();
+        })
+        .catch(function(err) {
+          // Show error message
+          var errEl = document.getElementById("error-" + cid);
+          if (errEl) errEl.style.display = "flex";
+          var loaders = el.getElementsByClassName("loading");
+          for (var i = 0; i < loaders.length; i++) loaders[i].style.display = "none";
+          reject(err);
+        });
+    }));
+  } catch(e) {
+    var errEl = document.getElementById("error-" + cid);
+    if (errEl) errEl.style.display = "flex";
+    var loaders = el.getElementsByClassName("loading");
+    for (var i = 0; i < loaders.length; i++) loaders[i].style.display = "none";
+  }
+}
+
+// Render cards
+var container = document.getElementById("cards");
+MOLECULES.forEach(function(mol) {
+  container.appendChild(createCard(mol));
+});
+
+// Init viewers after DOM is ready
+window.addEventListener("load", function() {
+  MOLECULES.forEach(function(mol) {
+    initViewer(mol.cid, mol.has3D);
+  });
+});
+</script>
+</body>
+</html>
