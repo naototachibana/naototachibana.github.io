@@ -133,12 +133,16 @@ footer {
   <h1>PubChem Deuterium — Molecule Browser</h1>
   <p class="subtitle">
     Paginated browsing of explicitly deuterium-labelled PubChem compounds.
-    Click <strong>Load 3D</strong> to fetch and render each structure from PubChem.
+    Structures load automatically with bounded concurrency.
   </p>
 
   <div id="info-bar" class="info-bar" style="display:none;">
     <span id="page-info"></span>
     <span id="record-info" class="page-indicator"></span>
+  </div>
+
+  <div id="status-bar" class="info-bar" style="display:none;">
+    <span id="status-text">Auto-loading structures…</span>
   </div>
 
   <div id="cards" class="cards"></div>
@@ -156,11 +160,18 @@ footer {
 </div>
 
 <script>
+// ── Config ──
+const AUTOLOAD_CONCURRENCY = 2;
+const PAGES = 2;        // demo pages published
+
 // ── State ──
 let manifest = null;
-let shards = {};       // shard_id -> array of molecules
+let shards = {};
 let currentPage = 1;
 let totalPages = 0;
+let loadedCount = 0;
+let failedCount = 0;
+let totalToLoad = 0;
 
 // ── DOM refs ──
 const cardsEl = document.getElementById("cards");
@@ -168,6 +179,8 @@ const paginationEl = document.getElementById("pagination");
 const infoBar = document.getElementById("info-bar");
 const pageInfo = document.getElementById("page-info");
 const recordInfo = document.getElementById("record-info");
+const statusBar = document.getElementById("status-bar");
+const statusText = document.getElementById("status-text");
 const noDataEl = document.getElementById("no-data");
 
 // ── URL helpers ──
@@ -176,9 +189,46 @@ function getPageFromURL() {
   const p = parseInt(params.get("page"), 10);
   return (!isNaN(p) && p >= 1) ? p : 1;
 }
+function pageURL(page) { return "?page=" + page; }
 
-function pageURL(page) {
-  return "?page=" + page;
+// ── Bounded concurrent queue ──
+async function runWithConcurrency(items, limit, worker) {
+  const queue = items.slice();
+  const workers = Array.from({ length: limit }, async function() {
+    while (queue.length > 0) {
+      const item = queue.shift();
+      await worker(item);
+    }
+  });
+  await Promise.all(workers);
+}
+
+// ── Status helpers ──
+function updateStatus() {
+  statusBar.style.display = "flex";
+  if (loadedCount + failedCount >= totalToLoad) {
+    if (failedCount === 0) {
+      statusText.textContent = "Loaded " + loadedCount + " / " + totalToLoad + " structures";
+    } else {
+      statusText.textContent = "Loaded " + loadedCount + " / " + totalToLoad + " structures; " + failedCount + " failed";
+    }
+  } else {
+    statusText.textContent = "Auto-loading " + (loadedCount + failedCount) + " / " + totalToLoad + " (concurrency " + AUTOLOAD_CONCURRENCY + ")\u2026";
+  }
+}
+
+function setCardStatus(index, text, isError) {
+  const loadBtn = document.getElementById("load-btn-" + index);
+  if (!loadBtn) return;
+  if (isError) {
+    loadBtn.textContent = text + " \u21BB Retry";
+    loadBtn.style.borderColor = "#c0392b";
+    loadBtn.style.color = "#c0392b";
+  } else {
+    loadBtn.textContent = text;
+    loadBtn.style.borderColor = "";
+    loadBtn.style.color = "";
+  }
 }
 
 // ── Load manifest ──
@@ -206,13 +256,11 @@ async function loadShard(shardId) {
 async function getPageMolecules(page) {
   if (!manifest) await loadManifest();
   if (page < 1 || page > totalPages) return null;
-
   const pageSize = manifest.page_size;
   const shardSize = manifest.shard_size;
   const offset = (page - 1) * pageSize;
   const shardId = Math.floor(offset / shardSize);
   const innerOffset = offset % shardSize;
-
   const data = await loadShard(shardId);
   return data.slice(innerOffset, innerOffset + pageSize);
 }
@@ -238,7 +286,7 @@ function createCard(mol, index) {
   viewer.id = "viewer-" + index;
   const loading = document.createElement("div");
   loading.className = "loading";
-  loading.textContent = "Click Load 3D to render";
+  loading.textContent = "Queued for auto-load\u2026";
   viewer.appendChild(loading);
   const errMsg = document.createElement("div");
   errMsg.className = "error-msg";
@@ -258,9 +306,13 @@ function createCard(mol, index) {
 
   const loadBtn = document.createElement("button");
   loadBtn.className = "load-btn";
-  loadBtn.textContent = "Load 3D";
+  loadBtn.id = "load-btn-" + index;
+  loadBtn.textContent = "Queued\u2026";
   loadBtn.addEventListener("click", function() {
-    loadStructure(mol.cid, index);
+    // Manual click triggers retry for failed molecules
+    if (loadBtn.textContent.includes("Retry")) {
+      loadStructureForOne(mol, index);
+    }
   });
   footer.appendChild(loadBtn);
   card.appendChild(footer);
@@ -268,22 +320,35 @@ function createCard(mol, index) {
   return card;
 }
 
-// ── Load 3D structure from PubChem ──
-async function loadStructure(cid, index) {
+// ── Load single structure for autoload ──
+async function loadStructureForOne(mol, index) {
+  const cid = mol.cid;
   const viewerEl = document.getElementById("viewer-" + index);
   const loading = viewerEl.querySelector(".loading");
   const errEl = document.getElementById("error-" + index);
-  loading.textContent = "Loading from PubChem\u2026";
+  errEl.style.display = "none";
+
+  function setLoadingStatus(text) {
+    loading.style.display = "flex";
+    loading.textContent = text;
+    loading.style.color = "";
+  }
 
   function showError(msg) {
     loading.style.display = "none";
     errEl.innerHTML = (msg || "Failed to load structure")
       + '<br><a href="https://pubchem.ncbi.nlm.nih.gov/compound/' + cid + '" target="_blank" rel="noopener">View on PubChem \u2192</a>';
     errEl.style.display = "flex";
+    failedCount++;
+    updateStatus();
+    setCardStatus(index, "Failed", true);
   }
 
-  // Try 3D first, then fallback to 2D
+  setLoadingStatus("Loading 3D structure\u2026");
+  setCardStatus(index, "Loading 3D\u2026", false);
+
   let sdfData = null;
+  let usedFallback = false;
   const urls = [
     "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF?record_type=3d",
     "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF",
@@ -293,15 +358,21 @@ async function loadStructure(cid, index) {
       const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
       if (r.ok) {
         sdfData = await r.text();
-        if (sdfData && sdfData.includes("M  END")) break;
+        if (sdfData && sdfData.includes("M  END")) {
+          if (usedFallback) setLoadingStatus("Rendering 2D\u2026");
+          break;
+        }
       }
     } catch(e) {
       // try next URL
     }
+    usedFallback = true;
+    setLoadingStatus("3D unavailable, trying 2D\u2026");
+    setCardStatus(index, "Fetching 2D\u2026", false);
   }
 
   if (!sdfData) {
-    showError("PubChem SDF unavailable");
+    showError("PubChem structure unavailable");
     return;
   }
 
@@ -314,8 +385,70 @@ async function loadStructure(cid, index) {
     viewer.zoomTo();
     viewer.render();
     loading.style.display = "none";
-  } catch (e) {
+    loadedCount++;
+    updateStatus();
+    setCardStatus(index, "Rendered", false);
+  } catch(e) {
     showError("3D render error: " + e.message);
+  }
+}
+
+// ── Load 3D structure (public API, also called from old code path) ──
+async function loadStructure(cid, index) {
+  // Find the molecule in the current page data
+  const molecules = window._currentPageMolecules;
+  if (molecules) {
+    const mol = molecules.find(m => m.cid === cid);
+    if (mol) {
+      await loadStructureForOne(mol, index);
+      return;
+    }
+  }
+  // Fallback: try legacy single-CID load
+  const viewerEl = document.getElementById("viewer-" + index);
+  if (!viewerEl) return;
+  const loading = viewerEl.querySelector(".loading");
+  loading.textContent = "Loading from PubChem\u2026";
+  let sdfData = null;
+  const urls = [
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF?record_type=3d",
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF",
+  ];
+  for (const url of urls) {
+    try {
+      const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
+      if (r.ok) {
+        sdfData = await r.text();
+        if (sdfData && sdfData.includes("M  END")) break;
+      }
+    } catch(e) {}
+  }
+  const errEl = document.getElementById("error-" + index);
+  if (!sdfData) {
+    loading.style.display = "none";
+    if (errEl) {
+      errEl.innerHTML = "Failed to load structure<br>"
+        + '<a href="https://pubchem.ncbi.nlm.nih.gov/compound/' + cid + '" target="_blank" rel="noopener">View on PubChem \u2192</a>';
+      errEl.style.display = "flex";
+    }
+    return;
+  }
+  try {
+    const viewer = $3Dmol.createViewer(viewerEl, {
+      backgroundColor: "white", antialias: true
+    });
+    viewer.addModel(sdfData, "sdf");
+    viewer.setStyle({}, { stick: { radius: 0.15, colorscheme: "Jmol" } });
+    viewer.zoomTo();
+    viewer.render();
+    loading.style.display = "none";
+  } catch(e) {
+    loading.style.display = "none";
+    if (errEl) {
+      errEl.innerHTML = "Render error<br>"
+        + '<a href="https://pubchem.ncbi.nlm.nih.gov/compound/' + cid + '" target="_blank" rel="noopener">View on PubChem \u2192</a>';
+      errEl.style.display = "flex";
+    }
   }
 }
 
@@ -326,12 +459,19 @@ async function renderPage(page) {
   paginationEl.innerHTML = "";
   noDataEl.style.display = "none";
   infoBar.style.display = "none";
+  statusBar.style.display = "none";
+  loadedCount = 0;
+  failedCount = 0;
+  totalToLoad = 0;
 
   const molecules = await getPageMolecules(page);
   if (!molecules || molecules.length === 0) {
     noDataEl.style.display = "block";
     return;
   }
+
+  window._currentPageMolecules = molecules;
+  totalToLoad = molecules.length;
 
   infoBar.style.display = "flex";
   const startRecord = (page - 1) * manifest.page_size + 1;
@@ -343,46 +483,33 @@ async function renderPage(page) {
     cardsEl.appendChild(createCard(mol, (page - 1) * manifest.page_size + i));
   });
 
-  // Pagination links
   buildPagination(page);
+  updateStatus();
+
+  // Autoload all molecules on this page
+  runWithConcurrency(molecules, AUTOLOAD_CONCURRENCY, async function(mol, idx) {
+    const globalIndex = (page - 1) * manifest.page_size + molecules.indexOf(mol);
+    await loadStructureForOne(mol, globalIndex);
+  });
 }
 
 function buildPagination(page) {
   const p = paginationEl;
-
-  // First
-  const first = document.createElement("a");
-  first.href = pageURL(1);
-  first.textContent = "\u00ab First";
-  if (page <= 1) first.className = "disabled";
-  p.appendChild(first);
-
-  // Prev
-  const prev = document.createElement("a");
-  prev.href = pageURL(Math.max(1, page - 1));
-  prev.textContent = "\u2039 Prev";
-  if (page <= 1) prev.className = "disabled";
-  p.appendChild(prev);
-
-  // Page numbers
+  function addLink(label, target, disabled) {
+    const a = document.createElement("a");
+    if (!disabled) a.href = pageURL(target);
+    a.textContent = label;
+    if (disabled) a.className = "disabled";
+    p.appendChild(a);
+  }
+  addLink("\u00ab First", 1, page <= 1);
+  addLink("\u2039 Prev", Math.max(1, page - 1), page <= 1);
   const span = document.createElement("span");
   span.className = "current";
   span.textContent = page + " / " + totalPages;
   p.appendChild(span);
-
-  // Next
-  const next = document.createElement("a");
-  next.href = pageURL(Math.min(totalPages, page + 1));
-  next.textContent = "Next \u203a";
-  if (page >= totalPages) next.className = "disabled";
-  p.appendChild(next);
-
-  // Last
-  const last = document.createElement("a");
-  last.href = pageURL(totalPages);
-  last.textContent = "Last \u00bb";
-  if (page >= totalPages) last.className = "disabled";
-  p.appendChild(last);
+  addLink("Next \u203a", Math.min(totalPages, page + 1), page >= totalPages);
+  addLink("Last \u00bb", totalPages, page >= totalPages);
 }
 
 // ── Init ──
