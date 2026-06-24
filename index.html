@@ -1,29 +1,373 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>naototachibana.github.io</title>
-   </head>
-   <body>
-      <h1>有用リンク集</h1>
-      <div><a href="pubchem-deuterium-filter/molecules/">PubChem Deuterium — Interactive 3D Molecule Viewer</a></div>
-      <div><a href= "https://gist.github.com/naototachibana/e2e41bbb47e8a60bc053db73a1cd0c70" >機械学習の環境チェック</a></div>
-      <div><a href= "https://gist.github.com/maeharin/4993397" >du 直下のディレクトリの総計のみ表示（サイズが大きい順）</a></div>
-      <div><a href= "https://tomomano.github.io/learn-aws-by-coding/" >コードで学ぶAWS入門</a></div>
-      <div><a href= "https://atmarkit.itmedia.co.jp/ait/articles/1702/02/news031.html" >【 rsync 】コマンド（その1）――ファイルやディレクトリを同期する</a></div>
-      <div><a href= "https://atmarkit.itmedia.co.jp/ait/articles/1702/03/news020.html" >【 rsync 】コマンド（その2）――同期元にないファイルを削除する／実行内容を事前に確認する</a></div>
-      <div><a href= "https://oretachino.hatenablog.com/entry/2014/12/11/003815" >scpとrsyncでパスのケツスラッシュのありなしの挙動を毎回迷うのでメモ</a></div>
-      <div><a href= "https://qiita.com/koara-local/items/777f2a182788a7310fcd" >rsync, wget, curl, scp に速度制限をかける方法まとめ</a></div>
-      <div><a href= "https://www.xmisao.com/2013/09/01/how-to-use-find-and-xargs.html">findとxargsの基本的な使い方</a></div>
-      <div><a href= "https://www.forcia.com/blog/001188.html" >圧縮アルゴリズムZstandardを導入しバッチ処理時間を短縮　データ鮮度を改善した話</a></div>
-      <div><a href= "" ></a></div>
-      <!--       <h1>Bibliography</h1>
-      <ol>
-         <li>
-            <p>E.Balagurusamy, <cite>Programming with JAVA: A Primer</cite>, 3rd edition, (2007)</p>
-         </li>
-         <li>
-            <p>Reto Meier, <cite>Professional Android 4 Application Development</cite>, 3rd edition, (2012)</p>
-         </li>
-      </ol> -->
-   </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naoto Tachibana — Computational Chemistry &amp; Molecular ML</title>
+<style>
+:root {
+  --bg: #0b1120;
+  --bg-card: #131b2e;
+  --bg-card-hover: #1a2540;
+  --text: #e2e8f0;
+  --text-dim: #8892b0;
+  --text-bright: #f1f5f9;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --border: #1e293b;
+  --gradient: linear-gradient(135deg, #0b1120 0%, #1a1f3a 100%);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --text: #1e293b;
+    --text-dim: #64748b;
+    --text-bright: #0f172a;
+    --accent: #0284c7;
+    --accent2: #6366f1;
+    --border: #e2e8f0;
+    --gradient: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Nav */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 60px;
+}
+.nav-links { display: flex; gap: 24px; font-size: 0.9em; }
+.nav-links a { color: var(--text-dim); }
+.nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 40px 0 60px;
+}
+.hero h1 {
+  font-size: 2.8em;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.hero .subtitle {
+  font-size: 1.15em;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.hero .bio {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text-dim);
+  font-size: 0.95em;
+}
+.hero-links {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.85em;
+  font-weight: 500;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all 0.2s;
+}
+.hero-links a:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+/* Sections */
+section { margin-bottom: 60px; }
+.section-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+/* Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+.card:hover { background: var(--bg-card-hover); }
+.card h3 { font-size: 1em; font-weight: 600; margin-bottom: 8px; }
+.card p { font-size: 0.88em; color: var(--text-dim); line-height: 1.5; }
+
+/* Project cards */
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: all 0.2s;
+}
+.project-card:hover { background: var(--bg-card-hover); }
+.project-card h3 { font-size: 1.05em; font-weight: 600; margin-bottom: 8px; }
+.project-card p { font-size: 0.88em; color: var(--text-dim); margin-bottom: 12px; }
+.project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+.tag-blue { background: rgba(56,189,248,0.15); color: var(--accent); }
+.tag-purple { background: rgba(129,140,248,0.15); color: var(--accent2); }
+.tag-green { background: rgba(74,222,128,0.15); color: #4ade80; }
+.tag-amber { background: rgba(251,191,36,0.15); color: #fbbf24; }
+
+/* Links list */
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.9em;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.link-item:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+footer a { color: var(--text-dim); }
+footer a:hover { color: var(--accent); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2em; }
+  .card-grid { grid-template-columns: 1fr; }
+  .link-grid { grid-template-columns: 1fr; }
+  nav { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Navigation -->
+<nav>
+  <span style="font-weight:600; color:var(--text-bright);">Naoto Tachibana</span>
+  <div class="nav-links">
+    <a href="#research">Research</a>
+    <a href="#projects">Projects</a>
+    <a href="#outputs">Outputs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Naoto Tachibana</h1>
+  <p class="subtitle">Computational Chemistry · Molecular Machine Learning · Scientific AI Agents</p>
+  <p class="bio">
+    I work at the intersection of computational chemistry and machine learning,
+    focusing on molecular representations, quantum-chemical datasets, reproducible
+    research infrastructure, and AI-assisted scientific workflows.
+  </p>
+  <div class="hero-links">
+    <a href="https://github.com/naototachibana">GitHub</a>
+    <a href="https://naototachibana.github.io/pubchem-deuterium-filter/molecules/">Molecule Viewer</a>
+    <a href="https://github.com/naototachibana/pubchem-deuterium-filter">PubChem D Filter</a>
+  </div>
+</section>
+
+<!-- Research -->
+<section id="research">
+  <h2 class="section-title">Research Interests</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>Molecular Conformer Learning</h3>
+      <p>Structure-property relationships, equivariant neural networks, and 3D molecular representations for predicting quantum-chemical properties.</p>
+    </div>
+    <div class="card">
+      <h3>Quantum-Chemical Datasets</h3>
+      <p>Building reproducible, well-documented datasets bridging electronic structure calculations and machine learning benchmarks.</p>
+    </div>
+    <div class="card">
+      <h3>Molecular Representations</h3>
+      <p>Neural network potentials, learned embeddings, and symmetry-aware architectures for atomistic simulations.</p>
+    </div>
+    <div class="card">
+      <h3>Scientific AI Agents</h3>
+      <p>LLM-based autonomous agents for cheminformatics, data engineering, and reproducible computational workflows.</p>
+    </div>
+    <div class="card">
+      <h3>Cheminformatics Infrastructure</h3>
+      <p>Bulk data processing pipelines, isotopic labelling analysis, and scalable molecular database tools.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <h2 class="section-title">Featured Projects</h2>
+
+  <div class="project-card">
+    <h3>PubChem Deuterium Filter</h3>
+    <p>
+      Bulk-download pipeline that scans all 124M PubChem compounds for explicitly
+      labelled deuterium (²H) atoms using RDKit atom-level isotope detection.
+      Found 559,150 deuterium-containing compounds across 357 SDF shard files.
+    </p>
+    <div class="project-tags">
+      <span class="tag tag-blue">RDKit</span>
+      <span class="tag tag-blue">PubChem</span>
+      <span class="tag tag-purple">Deuterium</span>
+      <span class="tag tag-green">Cheminformatics</span>
+      <span class="tag tag-amber">559k hits</span>
+    </div>
+    <div style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/naototachibana/pubchem-deuterium-filter" class="tag tag-blue" style="padding: 4px 14px;">Repository</a>
+      <a href="https://naototachibana.github.io/pubchem-deuterium-filter/molecules/" class="tag tag-purple" style="padding: 4px 14px;">3D Viewer</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <h3>Molecular ML Pipelines (QM7-X / ViSNet)</h3>
+    <p>
+      End-to-end molecular property prediction pipelines combining quantum-chemical
+      datasets with graph neural network architectures. Focus on reproducibility
+      benchmarks and HPC-optimised training workflows.
+    </p>
+    <div class="project-tags">
+      <span class="tag tag-blue">PyTorch</span>
+      <span class="tag tag-blue">PyG</span>
+      <span class="tag tag-purple">ViSNet</span>
+      <span class="tag tag-green">HPC</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <h3>Agent-Assisted Research Infrastructure</h3>
+    <p>
+      Autonomous AI agent systems for chemistry research workflows: automated
+      data ingestion, reproducible experiment execution, documentation generation,
+      and GitHub-native project management.
+    </p>
+    <div class="project-tags">
+      <span class="tag tag-blue">LLM Agents</span>
+      <span class="tag tag-purple">Automation</span>
+      <span class="tag tag-amber">DevOps</span>
+    </div>
+  </div>
+</section>
+
+<!-- Outputs -->
+<section id="outputs">
+  <h2 class="section-title">Selected Outputs</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>PubChem Deuterium Filter</h3>
+      <p>Private repository with full pipeline code, 31 tests, documented runbook, and a public 3D molecular viewer.</p>
+      <div style="margin-top: 10px;">
+        <a href="https://github.com/naototachibana/pubchem-deuterium-filter">GitHub →</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Interactive 3D Molecule Viewer</h3>
+      <p>GitHub Pages site with WebGL-based rotatable viewers for 6 sample deuterium-labelled PubChem compounds.</p>
+      <div style="margin-top: 10px;">
+        <a href="https://naototachibana.github.io/pubchem-deuterium-filter/molecules/">Viewer →</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Publications &amp; Preprints</h3>
+      <p>Selected publications and public artifacts will be listed here as they become available.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <h2 class="section-title">Contact &amp; Profiles</h2>
+  <div class="link-grid">
+    <a href="https://github.com/naototachibana" class="link-item">GitHub</a>
+    <a href="https://naototachibana.github.io/" class="link-item">Home</a>
+    <a href="https://github.com/naototachibana/pubchem-deuterium-filter" class="link-item">PubChem D Filter</a>
+    <a href="https://naototachibana.github.io/pubchem-deuterium-filter/molecules/" class="link-item">3D Molecule Viewer</a>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Naoto Tachibana</p>
+    <p style="margin-top: 4px;">
+      <a href="https://github.com/naototachibana">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://naototachibana.github.io/pubchem-deuterium-filter/molecules/">Molecule Viewer</a>
+    </p>
+  </div>
+</footer>
+
+</body>
 </html>
