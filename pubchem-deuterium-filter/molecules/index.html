@@ -193,7 +193,8 @@ function createCard(mol) {
   errMsg.className = "error-msg";
   errMsg.id = "error-" + mol.cid;
   errMsg.innerHTML = "Failed to load structure.<br>"
-    + '<a href="' + mol.pubchemUrl + '" target="_blank">View on PubChem \u2192</a>';
+    + '<span class="error-detail"></span><br>'
+    + '<a href="' + mol.pubchemUrl + '" target="_blank" rel="noopener">View on PubChem →</a>';
   viewer.appendChild(errMsg);
 
   const body = document.createElement("div");
@@ -229,50 +230,48 @@ function initViewer(cid, has3D) {
   const el = document.getElementById("viewer-" + cid);
   if (!el) return;
 
-  // Build the SDF path: local asset
   const sdfUrl = "assets/sdf/" + cid + ".sdf";
+  const loader = el.querySelector(".loading");
+  const errEl = document.getElementById("error-" + cid);
 
-  try {
-    const viewer = $3Dmol.createViewer(el, {
-      backgroundColor: "white",
-      antialias: true
-    });
-
-    const style = has3D
-      ? { stick: { radius: 0.15, colorscheme: "Jmol" } }
-      : { stick: { radius: 0.15, colorscheme: "Jmol" } };
-
-    viewer.addModel(new Promise(function(resolve, reject) {
-      fetch(sdfUrl)
-        .then(function(r) {
-          if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.text();
-        })
-        .then(function(sdfData) {
-          viewer.addModel(sdfData, "sdf");
-          viewer.setStyle({}, style);
-          viewer.zoomTo();
-          viewer.render();
-          // Remove loading indicator
-          var loaders = el.getElementsByClassName("loading");
-          for (var i = 0; i < loaders.length; i++) loaders[i].style.display = "none";
-          resolve();
-        })
-        .catch(function(err) {
-          // Show error message
-          var errEl = document.getElementById("error-" + cid);
-          if (errEl) errEl.style.display = "flex";
-          var loaders = el.getElementsByClassName("loading");
-          for (var i = 0; i < loaders.length; i++) loaders[i].style.display = "none";
-          reject(err);
-        });
-    }));
-  } catch(e) {
-    var errEl = document.getElementById("error-" + cid);
-    if (errEl) errEl.style.display = "flex";
-    var loaders = el.getElementsByClassName("loading");
-    for (var i = 0; i < loaders.length; i++) loaders[i].style.display = "none";
+  function hideLoader() {
+    if (loader) loader.style.display = "none";
   }
+
+  function showError(msg) {
+    hideLoader();
+    if (errEl) {
+      const detail = errEl.querySelector(".error-detail");
+      if (detail) detail.textContent = msg || "";
+      errEl.style.display = "flex";
+    }
+  }
+
+  fetch(sdfUrl, { cache: "no-store" })
+    .then(function(r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    })
+    .then(function(sdfData) {
+      if (!sdfData.includes("M  END")) {
+        throw new Error("SDF does not contain M END");
+      }
+      const viewer = $3Dmol.createViewer(el, {
+        backgroundColor: "white",
+        antialias: true
+      });
+      viewer.addModel(sdfData, "sdf");
+      viewer.setStyle({}, {
+        stick: { radius: 0.15, colorscheme: "Jmol" }
+      });
+      viewer.zoomTo();
+      viewer.render();
+      hideLoader();
+    })
+    .catch(function(err) {
+      console.error("CID " + cid + " error:", err);
+      showError(err.message || String(err));
+    });
 }
 
 // Render cards
