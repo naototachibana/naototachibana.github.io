@@ -359,23 +359,29 @@ async function fetchText(url, timeoutMs) {
   return await r.text();
 }
 
-// ── Load single structure: local SDF first, then PubChem fallback ──
+// ── 3Dmol ready check ──
+function check3Dmol() {
+  if (typeof $3Dmol === "undefined") {
+    throw new Error("3Dmol.js is not loaded from CDN");
+  }
+}
+
+// ── Load single structure: local SDF first, then ChEMBL fallback ──
 async function loadStructureForOne(mol, index) {
-  const baseId = mol.chembl_id || mol.molregno;
   const viewerEl = document.getElementById("viewer-" + index);
   if (!viewerEl) return;
-  const loading = viewerEl.querySelector(".loading");
   const errEl = document.getElementById("error-" + index);
-  errEl.style.display = "none";
+  const loading = viewerEl.querySelector(".loading");
+
+  // Clear old canvas/content
+  viewerEl.querySelectorAll("canvas, .viewer-3dmoljs").forEach(function(el) { el.remove(); });
 
   function setLoadingStatus(text) {
-    loading.style.display = "flex";
-    loading.textContent = text;
-    loading.style.color = "";
+    if (loading) { loading.style.display = "flex"; loading.textContent = text; }
   }
 
   function showError(msg) {
-    loading.style.display = "none";
+    if (loading) loading.style.display = "none";
     errEl.innerHTML = (msg || "Failed to load structure")
       + '<br><a href="' + (mol.chembl_url || "https://www.ebi.ac.uk/chembl/") + '" target="_blank" rel="noopener">View on ChEMBL \u2192</a>';
     errEl.style.display = "flex";
@@ -386,14 +392,20 @@ async function loadStructureForOne(mol, index) {
 
   function renderSdf(sdfData) {
     try {
+      check3Dmol();
+      if (errEl) errEl.style.display = "none";
+      if (loading) loading.style.display = "none";
+
       const viewer = $3Dmol.createViewer(viewerEl, {
-        backgroundColor: "white", antialias: true
+        backgroundColor: "white",
+        antialias: true
       });
       viewer.addModel(sdfData, "sdf");
-      viewer.setStyle({}, { stick: { radius: 0.15, colorscheme: "Jmol" } });
+      viewer.setStyle({}, { stick: { radius: 0.15 } });
       viewer.zoomTo();
+      viewer.zoom(0.8);
       viewer.render();
-      loading.style.display = "none";
+
       loadedCount++;
       updateStatus();
       setCardStatus(index, "Rendered", false);
@@ -410,18 +422,23 @@ async function loadStructureForOne(mol, index) {
   setCardStatus(index, "Loading local\u2026", false);
 
   try {
+    if (typeof $3Dmol === "undefined") {
+      throw new Error("3Dmol.js not loaded");
+    }
     const localData = await fetchText(localPath, 10000);
     if (localData && localData.includes("M  END")) {
       if (renderSdf(localData)) return;
+    } else {
+      throw new Error("SDF missing M END");
     }
   } catch(e) {
-    // local failed, continue to fallback
+    // local failed
   }
 
-  // Step 2: ChEMBL SDF from molfile was already local. No PubChem fallback for ChEMBL.
+  // Step 2: No fallback for ChEMBL — show error
   setLoadingStatus("Local SDF unavailable\u2026");
-  setCardStatus(index, "No SDF", false);
-  showError("No local SDF available");
+  setCardStatus(index, "Failed", false);
+  showError("No local SDF available for " + (mol.chembl_id || mol.molregno));
 }
 
 // ── Load 3D structure (public API, also called from old code path) ──
