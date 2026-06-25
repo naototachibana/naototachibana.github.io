@@ -6,7 +6,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "11980",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/12669",
-    "sdf_path": "assets/sdf/12669.sdf"
+    "sdf_path": "assets/sdf/12669.sdf",
+    "svg_path": "assets/svg/12669.svg"
   },
   {
     "cid": 13517,
@@ -15,7 +16,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "12775",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/13517",
-    "sdf_path": "assets/sdf/13517.sdf"
+    "sdf_path": "assets/sdf/13517.sdf",
+    "svg_path": "assets/svg/13517.svg"
   },
   {
     "cid": 20836,
@@ -24,7 +26,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "19570",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20836",
-    "sdf_path": "assets/sdf/20836.sdf"
+    "sdf_path": "assets/sdf/20836.sdf",
+    "svg_path": "assets/svg/20836.svg"
   },
   {
     "cid": 20837,
@@ -33,7 +36,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "19571",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20837",
-    "sdf_path": "assets/sdf/20837.sdf"
+    "sdf_path": "assets/sdf/20837.sdf",
+    "svg_path": "assets/svg/20837.svg"
   },
   {
     "cid": 24523,
@@ -42,7 +46,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "22945",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24523",
-    "sdf_path": "assets/sdf/24523.sdf"
+    "sdf_path": "assets/sdf/24523.sdf",
+    "svg_path": "assets/svg/24523.svg"
   },
   {
     "cid": 24602,
@@ -51,7 +56,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "23017",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24602",
-    "sdf_path": "assets/sdf/24602.sdf"
+    "sdf_path": "assets/sdf/24602.sdf",
+    "svg_path": "assets/svg/24602.svg"
   },
   {
     "cid": 27870,
@@ -60,7 +66,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "25963",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/27870",
-    "sdf_path": "assets/sdf/27870.sdf"
+    "sdf_path": "assets/sdf/27870.sdf",
+    "svg_path": "assets/svg/27870.svg"
   },
   {
     "cid": 40913,
@@ -69,7 +76,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "37746",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/40913",
-    "sdf_path": "assets/sdf/40913.sdf"
+    "sdf_path": "assets/sdf/40913.sdf",
+    "svg_path": "assets/svg/40913.svg"
   },
   {
     "cid": 47750,
@@ -78,7 +86,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "43955",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/47750",
-    "sdf_path": "assets/sdf/47750.sdf"
+    "sdf_path": "assets/sdf/47750.sdf",
+    "svg_path": "assets/svg/47750.svg"
   },
   {
     "cid": 49930,
@@ -87,7 +96,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "45685",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/49930",
-    "sdf_path": "assets/sdf/49930.sdf"
+    "sdf_path": "assets/sdf/49930.sdf",
+    "svg_path": "assets/svg/49930.svg"
   },
   {
     "cid": 50540,
@@ -96,7 +106,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "46223",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50540",
-    "sdf_path": "assets/sdf/50540.sdf"
+    "sdf_path": "assets/sdf/50540.sdf",
+    "svg_path": "assets/svg/50540.svg"
   },
   {
     "cid": 50541,
@@ -105,7 +116,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "46224",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50541",
-    "sdf_path": "assets/sdf/50541.sdf"
+    "sdf_path": "assets/sdf/50541.sdf",
+    "svg_path": "assets/svg/50541.svg"
   },
   {
     "cid": 50542,
@@ -114,7 +126,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "46225",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50542",
-    "sdf_path": "assets/sdf/50542.sdf"
+    "sdf_path": "assets/sdf/50542.sdf",
+    "svg_path": "assets/svg/50542.svg"
   },
   {
     "cid": 53360,
@@ -123,7 +136,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "48647",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/53360",
-    "sdf_path": "assets/sdf/53360.sdf"
+    "sdf_path": "assets/sdf/53360.sdf",
+    "svg_path": "assets/svg/53360.svg"
   },
   {
     "cid": 71502,
@@ -132,7 +146,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65351",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71502",
-    "sdf_path": "assets/sdf/71502.sdf"
+    "sdf_path": "assets/sdf/71502.sdf",
+    "svg_path": "assets/svg/71502.svg"
   },
   {
     "cid": 71568,
@@ -141,7 +156,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65413",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71568",
-    "sdf_path": "assets/sdf/71568.sdf"
+    "sdf_path": "assets/sdf/71568.sdf",
+    "svg_path": "assets/svg/71568.svg"
   },
   {
     "cid": 71583,
@@ -150,7 +166,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65420",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71583",
-    "sdf_path": "assets/sdf/71583.sdf"
+    "sdf_path": "assets/sdf/71583.sdf",
+    "svg_path": "assets/svg/71583.svg"
   },
   {
     "cid": 71601,
@@ -159,7 +176,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65432",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71601",
-    "sdf_path": "assets/sdf/71601.sdf"
+    "sdf_path": "assets/sdf/71601.sdf",
+    "svg_path": "assets/svg/71601.svg"
   },
   {
     "cid": 71603,
@@ -168,7 +186,8 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65434",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71603",
-    "sdf_path": "assets/sdf/71603.sdf"
+    "sdf_path": "assets/sdf/71603.sdf",
+    "svg_path": "assets/svg/71603.svg"
   },
   {
     "cid": 74861,
@@ -177,6 +196,7 @@
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "68295",
     "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/74861",
-    "sdf_path": "assets/sdf/74861.sdf"
+    "sdf_path": "assets/sdf/74861.sdf",
+    "svg_path": "assets/svg/74861.svg"
   }
 ]

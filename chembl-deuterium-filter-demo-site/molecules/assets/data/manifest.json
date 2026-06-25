@@ -23,5 +23,15 @@
       "count": 20
     }
   ],
-  "svg_base_path": "assets/svg"
+  "svg_base_path": "assets/svg",
+  "structure_primary": "local-rdkit-3d-conformer-3dmol",
+  "structure_modes": [
+    "3d",
+    "2d"
+  ],
+  "sdf3d_base_path": "assets/sdf3d",
+  "experimental_3d": false,
+  "viewer_ui": "toggle-3d-2d",
+  "default_structure_mode": "3d",
+  "structure_fallback": "local-rdkit-svg-2d"
 }

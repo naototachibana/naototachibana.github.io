@@ -20,5 +20,13 @@
   "structure_source": "local-sdf-first",
   "sdf_base_path": "assets/sdf",
   "sdf_path_strategy": "record.sdf_path",
-  "sdf_records_published": 20
+  "sdf_records_published": 20,
+  "structure_primary": "local-sdf-3dmol",
+  "structure_modes": [
+    "3d",
+    "2d"
+  ],
+  "svg_base_path": "assets/svg",
+  "viewer_ui": "toggle-3d-2d",
+  "default_structure_mode": "3d"
 }
