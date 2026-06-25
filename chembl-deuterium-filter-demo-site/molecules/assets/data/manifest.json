@@ -5,7 +5,7 @@
   "shard_size": 20,
   "records_published_in_demo": 20,
   "pages_published_in_demo": 2,
-  "structure_source": "local-chembl-sdf-first",
+  "structure_source": "local-svg-first-with-3dmol-fallback",
   "sdf_base_path": "assets/sdf",
   "id_field": "chembl_id",
   "activity_metadata": true,
@@ -22,5 +22,6 @@
       "start_index": 0,
       "count": 20
     }
-  ]
+  ],
+  "svg_base_path": "assets/svg"
 }

@@ -17,7 +17,8 @@
       "Rattus norvegicus"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2377051/",
-    "sdf_path": "assets/sdf/CHEMBL2377051.sdf"
+    "sdf_path": "assets/sdf/CHEMBL2377051.sdf",
+    "svg_path": "assets/svg/CHEMBL2377051.svg"
   },
   {
     "chembl_id": "CHEMBL5569387",
@@ -38,7 +39,8 @@
       "HCT-116"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5569387/",
-    "sdf_path": "assets/sdf/CHEMBL5569387.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5569387.sdf",
+    "svg_path": "assets/svg/CHEMBL5569387.svg"
   },
   {
     "chembl_id": "CHEMBL5571117",
@@ -59,7 +61,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5571117/",
-    "sdf_path": "assets/sdf/CHEMBL5571117.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5571117.sdf",
+    "svg_path": "assets/svg/CHEMBL5571117.svg"
   },
   {
     "chembl_id": "CHEMBL5595778",
@@ -80,7 +83,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5595778/",
-    "sdf_path": "assets/sdf/CHEMBL5595778.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5595778.sdf",
+    "svg_path": "assets/svg/CHEMBL5595778.svg"
   },
   {
     "chembl_id": "CHEMBL2377050",
@@ -101,7 +105,8 @@
       "Hepatocyte"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2377050/",
-    "sdf_path": "assets/sdf/CHEMBL2377050.sdf"
+    "sdf_path": "assets/sdf/CHEMBL2377050.sdf",
+    "svg_path": "assets/svg/CHEMBL2377050.svg"
   },
   {
     "chembl_id": "CHEMBL5571682",
@@ -123,7 +128,8 @@
       "Hs-578T"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5571682/",
-    "sdf_path": "assets/sdf/CHEMBL5571682.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5571682.sdf",
+    "svg_path": "assets/svg/CHEMBL5571682.svg"
   },
   {
     "chembl_id": "CHEMBL5569747",
@@ -144,7 +150,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5569747/",
-    "sdf_path": "assets/sdf/CHEMBL5569747.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5569747.sdf",
+    "svg_path": "assets/svg/CHEMBL5569747.svg"
   },
   {
     "chembl_id": "CHEMBL5572727",
@@ -165,7 +172,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5572727/",
-    "sdf_path": "assets/sdf/CHEMBL5572727.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5572727.sdf",
+    "svg_path": "assets/svg/CHEMBL5572727.svg"
   },
   {
     "chembl_id": "CHEMBL3585642",
@@ -187,7 +195,8 @@
       "Hepatocyte"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3585642/",
-    "sdf_path": "assets/sdf/CHEMBL3585642.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3585642.sdf",
+    "svg_path": "assets/svg/CHEMBL3585642.svg"
   },
   {
     "chembl_id": "CHEMBL3314043",
@@ -205,7 +214,8 @@
       "Nuclear receptor ROR-gamma"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3314043/",
-    "sdf_path": "assets/sdf/CHEMBL3314043.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3314043.sdf",
+    "svg_path": "assets/svg/CHEMBL3314043.svg"
   },
   {
     "chembl_id": "CHEMBL4474565",
@@ -225,7 +235,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL4474565/",
-    "sdf_path": "assets/sdf/CHEMBL4474565.sdf"
+    "sdf_path": "assets/sdf/CHEMBL4474565.sdf",
+    "svg_path": "assets/svg/CHEMBL4474565.svg"
   },
   {
     "chembl_id": "CHEMBL5418282",
@@ -243,7 +254,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5418282/",
-    "sdf_path": "assets/sdf/CHEMBL5418282.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5418282.sdf",
+    "svg_path": "assets/svg/CHEMBL5418282.svg"
   },
   {
     "chembl_id": "CHEMBL5433926",
@@ -262,7 +274,8 @@
       "ADMET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5433926/",
-    "sdf_path": "assets/sdf/CHEMBL5433926.sdf"
+    "sdf_path": "assets/sdf/CHEMBL5433926.sdf",
+    "svg_path": "assets/svg/CHEMBL5433926.svg"
   },
   {
     "chembl_id": "CHEMBL3906284",
@@ -282,7 +295,8 @@
       "Fibroblast growth factor receptor 1"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3906284/",
-    "sdf_path": "assets/sdf/CHEMBL3906284.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3906284.sdf",
+    "svg_path": "assets/svg/CHEMBL3906284.svg"
   },
   {
     "chembl_id": "CHEMBL3966929",
@@ -302,7 +316,8 @@
       "Fibroblast growth factor receptor 1"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3966929/",
-    "sdf_path": "assets/sdf/CHEMBL3966929.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3966929.sdf",
+    "svg_path": "assets/svg/CHEMBL3966929.svg"
   },
   {
     "chembl_id": "CHEMBL2024142",
@@ -320,7 +335,8 @@
       "MG-63"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2024142/",
-    "sdf_path": "assets/sdf/CHEMBL2024142.sdf"
+    "sdf_path": "assets/sdf/CHEMBL2024142.sdf",
+    "svg_path": "assets/svg/CHEMBL2024142.svg"
   },
   {
     "chembl_id": "CHEMBL2346990",
@@ -338,7 +354,8 @@
       "NON-PROTEIN TARGET"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2346990/",
-    "sdf_path": "assets/sdf/CHEMBL2346990.sdf"
+    "sdf_path": "assets/sdf/CHEMBL2346990.sdf",
+    "svg_path": "assets/svg/CHEMBL2346990.svg"
   },
   {
     "chembl_id": "CHEMBL3250770",
@@ -358,7 +375,8 @@
       "Mus musculus"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3250770/",
-    "sdf_path": "assets/sdf/CHEMBL3250770.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3250770.sdf",
+    "svg_path": "assets/svg/CHEMBL3250770.svg"
   },
   {
     "chembl_id": "CHEMBL3946938",
@@ -378,7 +396,8 @@
       "Fibroblast growth factor receptor 1"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3946938/",
-    "sdf_path": "assets/sdf/CHEMBL3946938.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3946938.sdf",
+    "svg_path": "assets/svg/CHEMBL3946938.svg"
   },
   {
     "chembl_id": "CHEMBL3918638",
@@ -398,6 +417,7 @@
       "Fibroblast growth factor receptor 1"
     ],
     "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3918638/",
-    "sdf_path": "assets/sdf/CHEMBL3918638.sdf"
+    "sdf_path": "assets/sdf/CHEMBL3918638.sdf",
+    "svg_path": "assets/svg/CHEMBL3918638.svg"
   }
 ]

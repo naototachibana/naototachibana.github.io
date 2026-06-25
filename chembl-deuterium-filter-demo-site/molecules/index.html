@@ -344,6 +344,11 @@ function createCard(mol, index) {
 }
 
 // ── Local SDF helpers ──
+function getLocalSvgPath(mol) {
+  if (mol.svg_path) return mol.svg_path;
+  return "assets/svg/" + (mol.chembl_id || mol.molregno) + ".svg";
+}
+
 function getLocalSdfPath(mol) {
   if (mol.sdf_path) return mol.sdf_path;
   const baseId = mol.chembl_id || mol.molregno;
@@ -373,8 +378,8 @@ async function loadStructureForOne(mol, index) {
   const errEl = document.getElementById("error-" + index);
   const loading = viewerEl.querySelector(".loading");
 
-  // Clear old canvas/content
-  viewerEl.querySelectorAll("canvas, .viewer-3dmoljs").forEach(function(el) { el.remove(); });
+  // Remove old canvases/SVG
+  viewerEl.querySelectorAll("canvas, .viewer-3dmoljs, img.svg-structure").forEach(function(el) { el.remove(); });
 
   function setLoadingStatus(text) {
     if (loading) { loading.style.display = "flex"; loading.textContent = text; }
@@ -390,69 +395,79 @@ async function loadStructureForOne(mol, index) {
     setCardStatus(index, "Failed", true);
   }
 
-  function renderSdf(sdfData) {
-    try {
-      check3Dmol();
+  function renderSvg(svgData) {
+    if (errEl) errEl.style.display = "none";
+    if (loading) loading.style.display = "none";
+    viewerEl.innerHTML = "";
+    // Re-create loading and error elements that were destroyed by innerHTML
+    const newLoading = document.createElement("div");
+    newLoading.className = "loading";
+    newLoading.textContent = "Rendered";
+    newLoading.style.display = "none";
+    viewerEl.appendChild(newLoading);
+    const newErr = document.createElement("div");
+    newErr.className = "error-msg";
+    newErr.id = "error-" + index;
+    newErr.style.display = "none";
+    viewerEl.appendChild(newErr);
+    
+    const img = document.createElement("img");
+    img.className = "svg-structure";
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgData);
+    img.style.cssText = "width:100%;height:100%;object-fit:contain;";
+    viewerEl.appendChild(img);
+    
+    loadedCount++;
+    updateStatus();
+    setCardStatus(index, "Rendered (SVG)", false);
+    return true;
+  }
+
+  // Step 1: Try local SVG
+  const svgPath = getLocalSvgPath(mol);
+  setLoadingStatus("Loading structure\u2026");
+  setCardStatus(index, "Loading SVG\u2026", false);
+  try {
+    const r = await fetch(svgPath, { signal: AbortSignal.timeout(10000) });
+    if (r.ok) {
+      const svgData = await r.text();
+      if (svgData && svgData.includes("<svg")) {
+        if (renderSvg(svgData)) return;
+      }
+    }
+  } catch(e) {}
+
+  // Step 2: Try 3Dmol SDF as fallback
+  setLoadingStatus("SVG unavailable, trying 3D\u2026");
+  setCardStatus(index, "Trying 3D\u2026", false);
+  const localPath = getLocalSdfPath(mol);
+  try {
+    const sdfData = await fetchText(localPath, 10000);
+    if (sdfData && sdfData.includes("M  END")) {
       if (errEl) errEl.style.display = "none";
       if (loading) loading.style.display = "none";
-      // Remove old canvases
-      viewerEl.querySelectorAll("canvas, .viewer-3dmoljs").forEach(function(el) { el.remove(); });
-
-      const viewer = $3Dmol.createViewer(viewerEl, {
-        backgroundColor: "white",
-        antialias: true
-      });
-      const model = viewer.addModel(sdfData, "sdf");
-
-      // Validate atom count from 3Dmol model
-      let atomCount = 0;
-      try { if (typeof model.selectedAtoms === "function") atomCount = model.selectedAtoms({}).length; }
-      catch(e) {}
-      if (!atomCount) {
-        try { if (typeof model.getAtoms === "function") atomCount = model.getAtoms().length; }
-        catch(e) {}
-      }
-      if (!atomCount || atomCount <= 0) {
-        throw new Error("3Dmol parsed zero atoms from SDF");
-      }
-
-      viewer.setStyle({}, { stick: { radius: 0.15 } });
-      viewer.zoomTo();
-      viewer.render();
-
-      loadedCount++;
-      updateStatus();
-      setCardStatus(index, "Rendered (" + atomCount + " atoms)", false);
-      return true;
-    } catch(e) {
-      showError("Render error: " + e.message);
-      return false;
+      viewerEl.querySelectorAll("canvas, .viewer-3dmoljs, img.svg-structure").forEach(function(el) { el.remove(); });
+      try {
+        if (typeof $3Dmol !== "undefined") {
+          const viewer = $3Dmol.createViewer(viewerEl, { backgroundColor: "white", antialias: true });
+          const model = viewer.addModel(sdfData, "sdf");
+          let atomCount = 0;
+          try { if (typeof model.selectedAtoms === "function") atomCount = model.selectedAtoms({}).length; } catch(e) {}
+          if (atomCount > 0) {
+            viewer.setStyle({}, { stick: { radius: 0.15 } });
+            viewer.zoomTo();
+            viewer.render();
+            loadedCount++;
+            updateStatus();
+            setCardStatus(index, "Rendered (3D)", false);
+            return;
+          }
+        }
+      } catch(e3) {}
     }
-  }
+  } catch(e) {}
 
-  // Step 1: Try local SDF
-  const localPath = getLocalSdfPath(mol);
-  setLoadingStatus("Loading local SDF\u2026");
-  setCardStatus(index, "Loading local\u2026", false);
-
-  try {
-    if (typeof $3Dmol === "undefined") {
-      throw new Error("3Dmol.js not loaded");
-    }
-    const localData = await fetchText(localPath, 10000);
-    if (localData && localData.includes("M  END")) {
-      if (renderSdf(localData)) return;
-    } else {
-      throw new Error("SDF missing M END");
-    }
-  } catch(e) {
-    // local failed
-  }
-
-  // Step 2: No fallback for ChEMBL — show error
-  setLoadingStatus("Local SDF unavailable\u2026");
-  setCardStatus(index, "Failed", false);
-  showError("No local SDF available for " + (mol.chembl_id || mol.molregno));
+  showError("No structure available");
 }
 
 // ── Load 3D structure (public API, also called from old code path) ──
