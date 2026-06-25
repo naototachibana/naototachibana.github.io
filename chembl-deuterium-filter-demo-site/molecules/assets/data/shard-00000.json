@@ -1,0 +1,403 @@
+[
+  {
+    "chembl_id": "CHEMBL2377051",
+    "molregno": 1558894,
+    "pref_name": null,
+    "deuterium_atom_count": 19,
+    "canonical_smiles": "[2H]C1([2H])C[C@@H]2[C@H](O1)OC([2H])([2H])[C@]2([2H])OC(=O)N[C@@H](Cc1ccc(OC([2H])([2H])c2csc(C)n2)cc1)[C@]([2H])(O)CN(C([2H])([2H])C([2H])(C([2H])([2H])[2H])C([2H])([2H])[2H])S(=O)(=O)c1ccc2c(c1)OC([2H])([2H])O2",
+    "activity_count": 3,
+    "pchembl_count": 0,
+    "standard_value_count": 3,
+    "top_activity_types": [
+      "T1/2(1)",
+      "CL(1)",
+      "AUC/dose(1)"
+    ],
+    "top_targets": [
+      "Rattus norvegicus"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2377051/",
+    "sdf_path": "assets/sdf/CHEMBL2377051.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5569387",
+    "molregno": 2917596,
+    "pref_name": null,
+    "deuterium_atom_count": 19,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(C(=O)Nc2cc3c(cc2Oc2cc(C)cc(C)c2)C(=O)N[C@@H](CC(=O)N(C([2H])([2H])C([2H])([2H])[2H])C([2H])([2H])C([2H])([2H])[2H])C(=O)N3)c(Br)c(OC([2H])([2H])[2H])c1OC([2H])([2H])[2H]",
+    "activity_count": 8,
+    "pchembl_count": 0,
+    "standard_value_count": 8,
+    "top_activity_types": [
+      "GI50(7)",
+      "CLH(1)"
+    ],
+    "top_targets": [
+      "MDA-MB-231",
+      "Hs-578T",
+      "HCT-116"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5569387/",
+    "sdf_path": "assets/sdf/CHEMBL5569387.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5571117",
+    "molregno": 2919326,
+    "pref_name": null,
+    "deuterium_atom_count": 19,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(C(=O)Nc2cc3c(cc2Oc2cc(C)cc(C)c2)C(=O)N(C)[C@@H](CC(=O)N(C([2H])([2H])C([2H])([2H])[2H])C([2H])([2H])C([2H])([2H])[2H])C(=O)N3)c(Br)c(OC([2H])([2H])[2H])c1OC([2H])([2H])[2H]",
+    "activity_count": 4,
+    "pchembl_count": 0,
+    "standard_value_count": 4,
+    "top_activity_types": [
+      "GI50(3)",
+      "CLH(1)"
+    ],
+    "top_targets": [
+      "Hs-578T",
+      "HCT-116",
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5571117/",
+    "sdf_path": "assets/sdf/CHEMBL5571117.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5595778",
+    "molregno": 2931234,
+    "pref_name": null,
+    "deuterium_atom_count": 19,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(C(=O)Nc2cc3c(cc2Oc2cc(C)cc(C)c2)C(=O)N[C@@H](CC(=O)N(C([2H])([2H])C([2H])([2H])[2H])C([2H])([2H])C([2H])([2H])[2H])C(=O)N3)c(Cl)c(OC([2H])([2H])[2H])c1OC([2H])([2H])[2H]",
+    "activity_count": 4,
+    "pchembl_count": 0,
+    "standard_value_count": 4,
+    "top_activity_types": [
+      "GI50(3)",
+      "CLH(1)"
+    ],
+    "top_targets": [
+      "Hs-578T",
+      "HCT-116",
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5595778/",
+    "sdf_path": "assets/sdf/CHEMBL5595778.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL2377050",
+    "molregno": 1558893,
+    "pref_name": null,
+    "deuterium_atom_count": 16,
+    "canonical_smiles": "[2H]C1([2H])Oc2ccc(S(=O)(=O)N(C[C@@]([2H])(O)[C@H](Cc3ccc(OC([2H])([2H])c4csc(C)n4)cc3)NC(=O)O[C@@]3([2H])CO[C@@]4([2H])OCC[C@H]43)C([2H])([2H])C([2H])(C([2H])([2H])[2H])C([2H])([2H])[2H])cc2O1",
+    "activity_count": 5,
+    "pchembl_count": 0,
+    "standard_value_count": 3,
+    "top_activity_types": [
+      "Stability(2)",
+      "T1/2(1)",
+      "CL(1)"
+    ],
+    "top_targets": [
+      "Rattus norvegicus",
+      "Hepatocyte"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2377050/",
+    "sdf_path": "assets/sdf/CHEMBL2377050.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5571682",
+    "molregno": 2919891,
+    "pref_name": null,
+    "deuterium_atom_count": 15,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(C(=O)Nc2cc3c(cc2Oc2cc(C)cc(C)c2)C(=O)N[C@@H](CC(=O)N(OC([2H])([2H])[2H])C([2H])([2H])[2H])C(=O)N3)c(Br)c(OC([2H])([2H])[2H])c1OC([2H])([2H])[2H]",
+    "activity_count": 11,
+    "pchembl_count": 2,
+    "standard_value_count": 11,
+    "top_activity_types": [
+      "GI50(7)",
+      "IC50(2)",
+      "CLH(2)"
+    ],
+    "top_targets": [
+      "MDA-MB-231",
+      "ADMET",
+      "Hs-578T"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5571682/",
+    "sdf_path": "assets/sdf/CHEMBL5571682.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5569747",
+    "molregno": 2917956,
+    "pref_name": null,
+    "deuterium_atom_count": 15,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(C(=O)Nc2cc3c(cc2Oc2cc(C)cc(C)c2)C(=O)N[C@@H](CC(=O)N(C([2H])([2H])[2H])C([2H])([2H])[2H])C(=O)N3)c(Br)c(OC([2H])([2H])[2H])c1OC([2H])([2H])[2H]",
+    "activity_count": 4,
+    "pchembl_count": 0,
+    "standard_value_count": 4,
+    "top_activity_types": [
+      "GI50(3)",
+      "CLH(1)"
+    ],
+    "top_targets": [
+      "Hs-578T",
+      "HCT-116",
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5569747/",
+    "sdf_path": "assets/sdf/CHEMBL5569747.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5572727",
+    "molregno": 2920936,
+    "pref_name": null,
+    "deuterium_atom_count": 15,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(C(=O)Nc2cc3c(cc2Oc2cc(C)cc(C)c2)C(=O)N(C)[C@@H](CC(=O)N(C([2H])([2H])[2H])C([2H])([2H])[2H])C(=O)N3)c(Br)c(OC([2H])([2H])[2H])c1OC([2H])([2H])[2H]",
+    "activity_count": 4,
+    "pchembl_count": 0,
+    "standard_value_count": 4,
+    "top_activity_types": [
+      "GI50(3)",
+      "CLH(1)"
+    ],
+    "top_targets": [
+      "Hs-578T",
+      "HCT-116",
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5572727/",
+    "sdf_path": "assets/sdf/CHEMBL5572727.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3585642",
+    "molregno": 1948853,
+    "pref_name": null,
+    "deuterium_atom_count": 14,
+    "canonical_smiles": "[2H]c1cc2c(C([2H])([2H])[2H])c([2H])n(N(c3ccncc3F)C([2H])([2H])C([2H])([2H])C([2H])([2H])[2H])c2c([2H])c1[2H]",
+    "activity_count": 16,
+    "pchembl_count": 0,
+    "standard_value_count": 10,
+    "top_activity_types": [
+      "Drug metabolism(6)",
+      "CLH(5)",
+      "AUC(2)"
+    ],
+    "top_targets": [
+      "Rattus norvegicus",
+      "Liver microsome",
+      "Hepatocyte"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3585642/",
+    "sdf_path": "assets/sdf/CHEMBL3585642.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3314043",
+    "molregno": 1780759,
+    "pref_name": null,
+    "deuterium_atom_count": 13,
+    "canonical_smiles": "[2H]C([2H])([2H])N(C(=O)c1c(F)cccc1Cl)c1ccc(-c2cc(C(=O)NCC(C)(C)O)ccc2Cl)cc1N(C([2H])([2H])C([2H])([2H])[2H])C([2H])([2H])C([2H])([2H])[2H]",
+    "activity_count": 2,
+    "pchembl_count": 0,
+    "standard_value_count": 2,
+    "top_activity_types": [
+      "EC50(2)"
+    ],
+    "top_targets": [
+      "Nuclear receptor ROR-gamma"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3314043/",
+    "sdf_path": "assets/sdf/CHEMBL3314043.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL4474565",
+    "molregno": 2381571,
+    "pref_name": null,
+    "deuterium_atom_count": 13,
+    "canonical_smiles": "[2H]C([2H])([2H])C([2H])([2H])N1C([2H])([2H])C([2H])([2H])N(Cc2ccc(Nc3ncc(F)c(-c4cc(F)c5nc(C)n(C(C)C)c5c4)n3)nc2)C([2H])([2H])C1([2H])[2H]",
+    "activity_count": 14,
+    "pchembl_count": 0,
+    "standard_value_count": 14,
+    "top_activity_types": [
+      "Stability(10)",
+      "T1/2(2)",
+      "CL(2)"
+    ],
+    "top_targets": [
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL4474565/",
+    "sdf_path": "assets/sdf/CHEMBL4474565.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5418282",
+    "molregno": 2858450,
+    "pref_name": null,
+    "deuterium_atom_count": 13,
+    "canonical_smiles": "[2H]C(O)(CCCCCC(C(=O)O)(C([2H])([2H])[2H])C([2H])([2H])[2H])CCCCCC(C(=O)O)(C([2H])([2H])[2H])C([2H])([2H])[2H]",
+    "activity_count": 1,
+    "pchembl_count": 0,
+    "standard_value_count": 1,
+    "top_activity_types": [
+      "T1/2(1)"
+    ],
+    "top_targets": [
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5418282/",
+    "sdf_path": "assets/sdf/CHEMBL5418282.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL5433926",
+    "molregno": 2874094,
+    "pref_name": null,
+    "deuterium_atom_count": 13,
+    "canonical_smiles": "[2H]C([2H])([2H])N1C[C@H](C(=O)N(C([2H])([2H])C([2H])([2H])[2H])C([2H])([2H])C([2H])([2H])[2H])C=C2c3cccc4[nH]c(Br)c(c34)C[C@H]21",
+    "activity_count": 2,
+    "pchembl_count": 0,
+    "standard_value_count": 2,
+    "top_activity_types": [
+      "T1/2(1)",
+      "CL(1)"
+    ],
+    "top_targets": [
+      "ADMET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL5433926/",
+    "sdf_path": "assets/sdf/CHEMBL5433926.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3906284",
+    "molregno": 2115655,
+    "pref_name": null,
+    "deuterium_atom_count": 12,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(OC([2H])([2H])[2H])cc(N(c2ccc3ncc(-c4cnn(C)c4)nc3c2)C([2H])([2H])C([2H])([2H])C([2H])([2H])O)c1",
+    "activity_count": 13,
+    "pchembl_count": 9,
+    "standard_value_count": 13,
+    "top_activity_types": [
+      "IC50(13)"
+    ],
+    "top_targets": [
+      "Vascular endothelial growth factor receptor 2",
+      "Fibroblast growth factor receptor 3",
+      "Fibroblast growth factor receptor 1"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3906284/",
+    "sdf_path": "assets/sdf/CHEMBL3906284.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3966929",
+    "molregno": 2176300,
+    "pref_name": null,
+    "deuterium_atom_count": 12,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(OC([2H])([2H])[2H])cc(N(c2ccc3ncc(-c4cnn(C)c4)nc3c2)C([2H])([2H])C([2H])([2H])C([2H])([2H])NCC(F)(F)F)c1",
+    "activity_count": 13,
+    "pchembl_count": 9,
+    "standard_value_count": 13,
+    "top_activity_types": [
+      "IC50(13)"
+    ],
+    "top_targets": [
+      "Vascular endothelial growth factor receptor 2",
+      "Fibroblast growth factor receptor 3",
+      "Fibroblast growth factor receptor 1"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3966929/",
+    "sdf_path": "assets/sdf/CHEMBL3966929.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL2024142",
+    "molregno": 1339528,
+    "pref_name": null,
+    "deuterium_atom_count": 12,
+    "canonical_smiles": "[2H]c1c([2H])c([2H])c2c(c1[2H])C(=O)C(C/C=C(\\C)CC([2H])([2H])/C=C(/CC/C=C(\\C)CCC=C(C)C)C([2H])([2H])[2H])=C(C([2H])([2H])[2H])C2=O",
+    "activity_count": 3,
+    "pchembl_count": 0,
+    "standard_value_count": 0,
+    "top_activity_types": [
+      "Drug metabolism(3)"
+    ],
+    "top_targets": [
+      "MG-63"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2024142/",
+    "sdf_path": "assets/sdf/CHEMBL2024142.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL2346990",
+    "molregno": 1528814,
+    "pref_name": null,
+    "deuterium_atom_count": 12,
+    "canonical_smiles": "[2H]C([2H])([2H])C(O)(CCCC(CCCC(O)(C([2H])([2H])[2H])C([2H])([2H])[2H])[C@H]1CC[C@H]2/C(=C/C=C3C[C@@H](O)C[C@H](O)C3)CCC[C@]12C)C([2H])([2H])[2H]",
+    "activity_count": 1,
+    "pchembl_count": 0,
+    "standard_value_count": 0,
+    "top_activity_types": [
+      "GI(1)"
+    ],
+    "top_targets": [
+      "NON-PROTEIN TARGET"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL2346990/",
+    "sdf_path": "assets/sdf/CHEMBL2346990.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3250770",
+    "molregno": 1743428,
+    "pref_name": null,
+    "deuterium_atom_count": 11,
+    "canonical_smiles": "O=S(=O)(O)O.[2H]c1c([2H])c([2H])c(C([2H])([2H])C([2H])(N)C([2H])([2H])[2H])c([2H])c1[2H]",
+    "activity_count": 4,
+    "pchembl_count": 0,
+    "standard_value_count": 4,
+    "top_activity_types": [
+      "TIME(1)",
+      "Ratio(1)",
+      "LD50(1)"
+    ],
+    "top_targets": [
+      "Mus musculus"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3250770/",
+    "sdf_path": "assets/sdf/CHEMBL3250770.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3946938",
+    "molregno": 2156309,
+    "pref_name": null,
+    "deuterium_atom_count": 10,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(OC([2H])([2H])[2H])cc(N(c2ccc3ncc(-c4cnn(C)c4)nc3c2)C([2H])([2H])C([2H])([2H])O)c1",
+    "activity_count": 13,
+    "pchembl_count": 10,
+    "standard_value_count": 13,
+    "top_activity_types": [
+      "IC50(13)"
+    ],
+    "top_targets": [
+      "Vascular endothelial growth factor receptor 2",
+      "Fibroblast growth factor receptor 3",
+      "Fibroblast growth factor receptor 1"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3946938/",
+    "sdf_path": "assets/sdf/CHEMBL3946938.sdf"
+  },
+  {
+    "chembl_id": "CHEMBL3918638",
+    "molregno": 2128009,
+    "pref_name": null,
+    "deuterium_atom_count": 10,
+    "canonical_smiles": "[2H]C([2H])([2H])Oc1cc(OC([2H])([2H])[2H])cc(N(c2ccc3ncc(-c4cnn(C)c4)nc3c2)C([2H])([2H])C([2H])([2H])NC(C)C)c1",
+    "activity_count": 13,
+    "pchembl_count": 9,
+    "standard_value_count": 13,
+    "top_activity_types": [
+      "IC50(13)"
+    ],
+    "top_targets": [
+      "Vascular endothelial growth factor receptor 2",
+      "Fibroblast growth factor receptor 3",
+      "Fibroblast growth factor receptor 1"
+    ],
+    "chembl_url": "https://www.ebi.ac.uk/chembl/compound_report_card/CHEMBL3918638/",
+    "sdf_path": "assets/sdf/CHEMBL3918638.sdf"
+  }
+]

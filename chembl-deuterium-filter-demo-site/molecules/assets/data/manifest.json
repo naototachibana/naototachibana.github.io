@@ -1,5 +1,18 @@
 {
   "dataset": "ChEMBL explicit deuterium molecules",
-  "status": "placeholder",
-  "note": "Feasibility audit pending in chembl-deuterium-filter. No validated public demo records yet."
+  "chembl_version": 37,
+  "page_size": 10,
+  "shard_size": 20,
+  "records_published_in_demo": 20,
+  "pages_published_in_demo": 2,
+  "structure_source": "local-chembl-sdf-first",
+  "sdf_base_path": "assets/sdf",
+  "id_field": "chembl_id",
+  "activity_metadata": true,
+  "source_audit_commit": "9e0a67d",
+  "note": "20-record public demo selected from ChEMBL explicit-\u00b2H feasibility audit.",
+  "full_dataset_counts": {
+    "explicit_deuterium_molecules": 1165,
+    "molecules_with_activity": 1136
+  }
 }
