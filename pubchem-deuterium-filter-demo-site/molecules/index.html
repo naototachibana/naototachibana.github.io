@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubChem Deuterium — Paginated Molecule Viewer</title>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<style>
+:root {
+  --bg: #0b1120;
+  --bg-card: #131b2e;
+  --bg-card-hover: #1a2540;
+  --text: #e2e8f0;
+  --text-dim: #8892b0;
+  --text-bright: #f1f5f9;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --border: #1e293b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 20px;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 1.5em; margin-bottom: 4px; }
+.subtitle { font-size: 0.9em; color: var(--text-dim); margin-bottom: 20px; }
+
+/* Info bar */
+.info-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+.info-bar .page-indicator { color: var(--text-bright); font-weight: 600; }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card-header {
+  padding: 12px 14px 6px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.card-header h2 { font-size: 1em; font-weight: 600; }
+.d-badge {
+  background: rgba(56,189,248,0.15); color: var(--accent);
+  font-weight: 600; font-size: 0.75em; padding: 2px 8px; border-radius: 999px;
+}
+.card-smiles {
+  padding: 4px 14px 8px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.75em;
+  color: var(--text-dim);
+  word-break: break-all;
+}
+.viewer-container {
+  width: 100%; height: 280px; background: #fff; position: relative;
+}
+.viewer-container .loading, .viewer-container .error-msg {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1; pointer-events: none;
+}
+.viewer-container .error-msg {
+  z-index: 2; pointer-events: auto;
+  flex-direction: column; color: #c0392b; font-size: 0.85em; text-align: center; padding: 20px;
+}
+.card-footer {
+  padding: 10px 14px;
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.card-footer a, .load-btn {
+  font-size: 0.8em; padding: 4px 12px; border-radius: 6px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--accent); cursor: pointer; text-decoration: none; transition: 0.15s;
+}
+.card-footer a:hover, .load-btn:hover {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+
+/* Pagination */
+.pagination {
+  display: flex; justify-content: center; align-items: center;
+  gap: 8px; flex-wrap: wrap;
+  margin-top: 20px; padding: 12px 0;
+}
+.pagination a, .pagination span {
+  padding: 6px 14px; border-radius: 6px;
+  font-size: 0.85em; text-decoration: none;
+}
+.pagination a {
+  background: var(--bg-card); border: 1px solid var(--border); color: var(--text);
+  transition: 0.15s;
+}
+.pagination a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.pagination .current {
+  background: var(--accent); color: #fff; border: 1px solid var(--accent);
+}
+.pagination .disabled { opacity: 0.4; pointer-events: none; }
+
+.no-data { text-align: center; padding: 60px 20px; color: var(--text-dim); }
+.no-data a { color: var(--accent); }
+
+footer {
+  margin-top: 30px; text-align: center; font-size: 0.8em; color: var(--text-dim);
+  padding: 16px 0; border-top: 1px solid var(--border);
+}
+
+@media (max-width: 640px) {
+  .cards { grid-template-columns: 1fr; }
+  .info-bar { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>PubChem Deuterium — Molecule Browser</h1>
+  <p class="subtitle">
+    Paginated browsing of explicitly deuterium-labelled PubChem compounds.
+    Structures load automatically with bounded concurrency.
+  </p>
+
+  <div id="info-bar" class="info-bar" style="display:none;">
+    <span id="page-info"></span>
+    <span id="record-info" class="page-indicator"></span>
+  </div>
+
+  <div id="status-bar" class="info-bar" style="display:none;">
+    <span id="status-text">Auto-loading structures…</span>
+  </div>
+
+  <div id="cards" class="cards"></div>
+
+  <div id="pagination" class="pagination"></div>
+
+  <div id="no-data" class="no-data" style="display:none;">
+    <p>This page is out of range. <a href="?page=1">Go to page 1</a></p>
+  </div>
+
+  <footer>
+    <p>Data from <a href="https://pubchem.ncbi.nlm.nih.gov/">PubChem</a>.
+    Visualisation by <a href="https://3Dmol.org/">3Dmol.js</a>.</p>
+  </footer>
+</div>
+
+<script>
+// ── Config ──
+const AUTOLOAD_CONCURRENCY = 2;
+
+// ── State ──
+let manifest = null;
+let shards = {};
+let currentPage = 1;
+let totalPages = 0;
+let loadedCount = 0;
+let failedCount = 0;
+let totalToLoad = 0;
+
+// ── DOM refs ──
+const cardsEl = document.getElementById("cards");
+const paginationEl = document.getElementById("pagination");
+const infoBar = document.getElementById("info-bar");
+const pageInfo = document.getElementById("page-info");
+const recordInfo = document.getElementById("record-info");
+const statusBar = document.getElementById("status-bar");
+const statusText = document.getElementById("status-text");
+const noDataEl = document.getElementById("no-data");
+
+// ── URL helpers ──
+function getPageFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const p = parseInt(params.get("page"), 10);
+  return (!isNaN(p) && p >= 1) ? p : 1;
+}
+function pageURL(page) { return "?page=" + page; }
+
+// ── Bounded concurrent queue ──
+async function runWithConcurrency(items, limit, worker) {
+  const queue = items.slice();
+  const workers = Array.from({ length: limit }, async function() {
+    while (queue.length > 0) {
+      const item = queue.shift();
+      await worker(item);
+    }
+  });
+  await Promise.all(workers);
+}
+
+// ── Status helpers ──
+function updateStatus() {
+  statusBar.style.display = "flex";
+  if (loadedCount + failedCount >= totalToLoad) {
+    if (failedCount === 0) {
+      statusText.textContent = "Loaded " + loadedCount + " / " + totalToLoad + " structures";
+    } else {
+      statusText.textContent = "Loaded " + loadedCount + " / " + totalToLoad + " structures; " + failedCount + " failed";
+    }
+  } else {
+    statusText.textContent = "Auto-loading " + (loadedCount + failedCount) + " / " + totalToLoad + " (concurrency " + AUTOLOAD_CONCURRENCY + ")\u2026";
+  }
+}
+
+function setCardStatus(index, text, isError) {
+  const loadBtn = document.getElementById("load-btn-" + index);
+  if (!loadBtn) return;
+  if (isError) {
+    loadBtn.textContent = text + " \u21BB Retry";
+    loadBtn.style.borderColor = "#c0392b";
+    loadBtn.style.color = "#c0392b";
+  } else {
+    loadBtn.textContent = text;
+    loadBtn.style.borderColor = "";
+    loadBtn.style.color = "";
+  }
+}
+
+// ── Load manifest ──
+async function loadManifest() {
+  const r = await fetch("assets/data/manifest.json", { cache: "no-store" });
+  if (!r.ok) throw new Error("Failed to load manifest");
+  manifest = await r.json();
+  totalPages = manifest.total_pages ?? manifest.pages_published_in_demo;
+  return manifest;
+}
+
+// ── Load shard ──
+async function loadShard(shardId) {
+  if (shards[shardId]) return shards[shardId];
+  const shardInfo = manifest.shards.find(s => s.id === shardId);
+  if (!shardInfo) throw new Error("Shard " + shardId + " not found in manifest");
+  const r = await fetch(shardInfo.path, { cache: "no-store" });
+  if (!r.ok) throw new Error("Failed to load shard " + shardId);
+  const data = await r.json();
+  shards[shardId] = data;
+  return data;
+}
+
+// ── Get molecules for current page ──
+async function getPageMolecules(page) {
+  if (!manifest) await loadManifest();
+  if (page < 1 || page > totalPages) return null;
+  const pageSize = manifest.page_size;
+  const shardSize = manifest.shard_size;
+  const offset = (page - 1) * pageSize;
+  const shardId = Math.floor(offset / shardSize);
+  const innerOffset = offset % shardSize;
+  const data = await loadShard(shardId);
+  return data.slice(innerOffset, innerOffset + pageSize);
+}
+
+// ── Build a single card ──
+function createCard(mol, index) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const header = document.createElement("div");
+  header.className = "card-header";
+  header.innerHTML = '<h2>CID ' + mol.cid +
+    ' <span class="d-badge">' + mol.deuterium_atom_count + ' \u00B2H</span></h2>';
+  card.appendChild(header);
+
+  const smi = document.createElement("div");
+  smi.className = "card-smiles";
+  smi.textContent = mol.canonical_isomeric_smiles || "(no SMILES)";
+  card.appendChild(smi);
+
+  const viewer = document.createElement("div");
+  viewer.className = "viewer-container";
+  viewer.id = "viewer-" + index;
+  const loading = document.createElement("div");
+  loading.className = "loading";
+  loading.textContent = "Queued for auto-load\u2026";
+  viewer.appendChild(loading);
+  const errMsg = document.createElement("div");
+  errMsg.className = "error-msg";
+  errMsg.id = "error-" + index;
+  errMsg.style.display = "none";
+  viewer.appendChild(errMsg);
+  card.appendChild(viewer);
+
+  const footer = document.createElement("div");
+  footer.className = "card-footer";
+  const pubchemLink = document.createElement("a");
+  pubchemLink.href = mol.pubchem_url || "#";
+  pubchemLink.target = "_blank";
+  pubchemLink.rel = "noopener";
+  pubchemLink.textContent = "PubChem \u2192";
+  footer.appendChild(pubchemLink);
+
+  const loadBtn = document.createElement("button");
+  loadBtn.className = "load-btn";
+  loadBtn.id = "load-btn-" + index;
+  loadBtn.textContent = "Queued\u2026";
+  loadBtn.addEventListener("click", function() {
+    // Manual click triggers retry for failed molecules
+    if (loadBtn.textContent.includes("Retry")) {
+      loadStructureForOne(mol, index);
+    }
+  });
+  footer.appendChild(loadBtn);
+  card.appendChild(footer);
+
+  return card;
+}
+
+// ── Local SDF helpers ──
+function getLocalSdfPath(mol) {
+  if (mol.sdf_path) return mol.sdf_path;
+  if (manifest && manifest.sdf_base_path) {
+    return manifest.sdf_base_path.replace(/\/$/, "") + "/" + mol.cid + ".sdf";
+  }
+  return "assets/sdf/" + mol.cid + ".sdf";
+}
+
+async function fetchText(url, timeoutMs) {
+  const r = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return await r.text();
+}
+
+// ── Load single structure: local SDF first, then PubChem fallback ──
+async function loadStructureForOne(mol, index) {
+  const cid = mol.cid;
+  const viewerEl = document.getElementById("viewer-" + index);
+  if (!viewerEl) return;
+  const loading = viewerEl.querySelector(".loading");
+  const errEl = document.getElementById("error-" + index);
+  errEl.style.display = "none";
+
+  function setLoadingStatus(text) {
+    loading.style.display = "flex";
+    loading.textContent = text;
+    loading.style.color = "";
+  }
+
+  function showError(msg) {
+    loading.style.display = "none";
+    errEl.innerHTML = (msg || "Failed to load structure")
+      + '<br><a href="https://pubchem.ncbi.nlm.nih.gov/compound/' + cid + '" target="_blank" rel="noopener">View on PubChem \u2192</a>';
+    errEl.style.display = "flex";
+    failedCount++;
+    updateStatus();
+    setCardStatus(index, "Failed", true);
+  }
+
+  function renderSdf(sdfData) {
+    try {
+      const viewer = $3Dmol.createViewer(viewerEl, {
+        backgroundColor: "white", antialias: true
+      });
+      viewer.addModel(sdfData, "sdf");
+      viewer.setStyle({}, { stick: { radius: 0.15, colorscheme: "Jmol" } });
+      viewer.zoomTo();
+      viewer.render();
+      loading.style.display = "none";
+      loadedCount++;
+      updateStatus();
+      setCardStatus(index, "Rendered", false);
+      return true;
+    } catch(e) {
+      showError("3D render error: " + e.message);
+      return false;
+    }
+  }
+
+  // Step 1: Try local SDF
+  const localPath = getLocalSdfPath(mol);
+  setLoadingStatus("Loading local SDF\u2026");
+  setCardStatus(index, "Loading local\u2026", false);
+
+  try {
+    const localData = await fetchText(localPath, 10000);
+    if (localData && localData.includes("M  END")) {
+      if (renderSdf(localData)) return;
+    }
+  } catch(e) {
+    // local failed, continue to fallback
+  }
+
+  // Step 2: Try PubChem 3D
+  setLoadingStatus("Local unavailable, trying PubChem 3D\u2026");
+  setCardStatus(index, "Fetching 3D\u2026", false);
+
+  for (const url of [
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF?record_type=3d",
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF",
+  ]) {
+    try {
+      const sdfData = await fetchText(url, 15000);
+      if (sdfData && sdfData.includes("M  END")) {
+        if (renderSdf(sdfData)) return;
+      }
+    } catch(e) {
+      // try next URL
+    }
+    setLoadingStatus("3D unavailable, trying PubChem 2D\u2026");
+    setCardStatus(index, "Fetching 2D\u2026", false);
+  }
+
+  showError("PubChem structure unavailable");
+}
+
+// ── Load 3D structure (public API, also called from old code path) ──
+async function loadStructure(cid, index) {
+  // Find the molecule in the current page data
+  const molecules = window._currentPageMolecules;
+  if (molecules) {
+    const mol = molecules.find(m => m.cid === cid);
+    if (mol) {
+      await loadStructureForOne(mol, index);
+      return;
+    }
+  }
+  // Fallback: try legacy single-CID load
+  const viewerEl = document.getElementById("viewer-" + index);
+  if (!viewerEl) return;
+  const loading = viewerEl.querySelector(".loading");
+  loading.textContent = "Loading from PubChem\u2026";
+  let sdfData = null;
+  const urls = [
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF?record_type=3d",
+    "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF",
+  ];
+  for (const url of urls) {
+    try {
+      const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
+      if (r.ok) {
+        sdfData = await r.text();
+        if (sdfData && sdfData.includes("M  END")) break;
+      }
+    } catch(e) {}
+  }
+  const errEl = document.getElementById("error-" + index);
+  if (!sdfData) {
+    loading.style.display = "none";
+    if (errEl) {
+      errEl.innerHTML = "Failed to load structure<br>"
+        + '<a href="https://pubchem.ncbi.nlm.nih.gov/compound/' + cid + '" target="_blank" rel="noopener">View on PubChem \u2192</a>';
+      errEl.style.display = "flex";
+    }
+    return;
+  }
+  try {
+    const viewer = $3Dmol.createViewer(viewerEl, {
+      backgroundColor: "white", antialias: true
+    });
+    viewer.addModel(sdfData, "sdf");
+    viewer.setStyle({}, { stick: { radius: 0.15, colorscheme: "Jmol" } });
+    viewer.zoomTo();
+    viewer.render();
+    loading.style.display = "none";
+  } catch(e) {
+    loading.style.display = "none";
+    if (errEl) {
+      errEl.innerHTML = "Render error<br>"
+        + '<a href="https://pubchem.ncbi.nlm.nih.gov/compound/' + cid + '" target="_blank" rel="noopener">View on PubChem \u2192</a>';
+      errEl.style.display = "flex";
+    }
+  }
+}
+
+// ── Render page ──
+async function renderPage(page) {
+  currentPage = page;
+  cardsEl.innerHTML = "";
+  paginationEl.innerHTML = "";
+  noDataEl.style.display = "none";
+  infoBar.style.display = "none";
+  statusBar.style.display = "none";
+  loadedCount = 0;
+  failedCount = 0;
+  totalToLoad = 0;
+
+  const molecules = await getPageMolecules(page);
+  if (!molecules || molecules.length === 0) {
+    noDataEl.style.display = "block";
+    return;
+  }
+
+  window._currentPageMolecules = molecules;
+  totalToLoad = molecules.length;
+
+  const totalRecs = manifest.total_records ?? manifest.records_published_in_demo;
+  const recordLabel = manifest.total_records ? "records" : "demo records";
+  infoBar.style.display = "flex";
+  const startRecord = (page - 1) * manifest.page_size + 1;
+  const endRecord = Math.min(startRecord + molecules.length - 1, totalRecs);
+  pageInfo.textContent = "Page " + page + " of " + totalPages;
+  recordInfo.textContent = "Showing records " + startRecord + "\u2013" + endRecord + " of " + totalRecs + " " + recordLabel;
+
+  molecules.forEach(function(mol, i) {
+    cardsEl.appendChild(createCard(mol, (page - 1) * manifest.page_size + i));
+  });
+
+  buildPagination(page);
+  updateStatus();
+
+  // Autoload all molecules on this page
+  runWithConcurrency(molecules, AUTOLOAD_CONCURRENCY, async function(mol, idx) {
+    const globalIndex = (page - 1) * manifest.page_size + molecules.indexOf(mol);
+    await loadStructureForOne(mol, globalIndex);
+  });
+}
+
+function buildPagination(page) {
+  const p = paginationEl;
+  function addLink(label, target, disabled) {
+    const a = document.createElement("a");
+    if (!disabled) a.href = pageURL(target);
+    a.textContent = label;
+    if (disabled) a.className = "disabled";
+    p.appendChild(a);
+  }
+  addLink("\u00ab First", 1, page <= 1);
+  addLink("\u2039 Prev", Math.max(1, page - 1), page <= 1);
+  const span = document.createElement("span");
+  span.className = "current";
+  span.textContent = page + " / " + totalPages;
+  p.appendChild(span);
+  addLink("Next \u203a", Math.min(totalPages, page + 1), page >= totalPages);
+  addLink("Last \u00bb", totalPages, page >= totalPages);
+}
+
+// ── Init ──
+loadManifest()
+  .then(function() {
+    currentPage = getPageFromURL();
+    if (currentPage > totalPages) currentPage = totalPages;
+    return renderPage(currentPage);
+  })
+  .catch(function(err) {
+    console.error("Init error:", err);
+    cardsEl.innerHTML = '<div class="no-data"><p>Error loading data: ' + err.message + '</p></div>';
+  });
+</script>
+</body>
+</html>

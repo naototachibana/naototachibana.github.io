@@ -1,0 +1,5 @@
+{
+  "dataset": "ChEMBL explicit deuterium molecules",
+  "status": "placeholder",
+  "note": "Feasibility audit pending in chembl-deuterium-filter. No validated public demo records yet."
+}
