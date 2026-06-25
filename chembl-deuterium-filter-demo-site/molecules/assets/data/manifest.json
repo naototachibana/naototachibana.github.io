@@ -14,5 +14,13 @@
   "full_dataset_counts": {
     "explicit_deuterium_molecules": 1165,
     "molecules_with_activity": 1136
-  }
+  },
+  "shards": [
+    {
+      "id": 0,
+      "path": "assets/data/shard-00000.json",
+      "start_index": 0,
+      "count": 20
+    }
+  ]
 }
