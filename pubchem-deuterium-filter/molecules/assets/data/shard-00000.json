@@ -5,7 +5,8 @@
     "canonical_isomeric_smiles": "[H]C([H])([H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "11980",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/12669"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/12669",
+    "sdf_path": "assets/sdf/12669.sdf"
   },
   {
     "cid": 13517,
@@ -13,7 +14,8 @@
     "canonical_isomeric_smiles": "[2H]C([2H])([2H])C(Cl)(C([2H])([2H])[2H])C([2H])([2H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "12775",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/13517"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/13517",
+    "sdf_path": "assets/sdf/13517.sdf"
   },
   {
     "cid": 20836,
@@ -21,7 +23,8 @@
     "canonical_isomeric_smiles": "[H]C([H])([H])C([H])([H])C([H])([H])C([H])([H])O[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "19570",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20836"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20836",
+    "sdf_path": "assets/sdf/20836.sdf"
   },
   {
     "cid": 20837,
@@ -29,7 +32,8 @@
     "canonical_isomeric_smiles": "[H]C([H])([H])C([H])([H])C([H])(O[2H])C([H])([H])[H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "19571",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20837"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/20837",
+    "sdf_path": "assets/sdf/20837.sdf"
   },
   {
     "cid": 24523,
@@ -37,7 +41,8 @@
     "canonical_isomeric_smiles": "[2H][2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "22945",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24523"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24523",
+    "sdf_path": "assets/sdf/24523.sdf"
   },
   {
     "cid": 24602,
@@ -45,7 +50,8 @@
     "canonical_isomeric_smiles": "[2H]O[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "23017",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24602"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/24602",
+    "sdf_path": "assets/sdf/24602.sdf"
   },
   {
     "cid": 27870,
@@ -53,7 +59,8 @@
     "canonical_isomeric_smiles": "[2H]C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "25963",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/27870"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/27870",
+    "sdf_path": "assets/sdf/27870.sdf"
   },
   {
     "cid": 40913,
@@ -61,7 +68,8 @@
     "canonical_isomeric_smiles": "[H]OC1=C([2H])C2=C(C([H])=C1[2H])C1([H])C([H])([H])C([H])([H])C3(C([H])([H])[H])C([H])(C([H])([H])C([H])([H])[C@]3([H])O[H])C1([H])C([H])([H])C2([H])[H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "37746",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/40913"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/40913",
+    "sdf_path": "assets/sdf/40913.sdf"
   },
   {
     "cid": 47750,
@@ -69,7 +77,8 @@
     "canonical_isomeric_smiles": "[2H]C([2H])([2H])N(C1=NC(N(C([2H])([2H])[2H])C([2H])([2H])[2H])=NC(N(C([2H])([2H])[2H])C([2H])([2H])[2H])=N1)C([2H])([2H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "43955",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/47750"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/47750",
+    "sdf_path": "assets/sdf/47750.sdf"
   },
   {
     "cid": 49930,
@@ -77,7 +86,8 @@
     "canonical_isomeric_smiles": "[H]C([H])([H])C(=O)OC([H])([H])N(N=O)C([2H])([2H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "45685",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/49930"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/49930",
+    "sdf_path": "assets/sdf/49930.sdf"
   },
   {
     "cid": 50540,
@@ -85,7 +95,8 @@
     "canonical_isomeric_smiles": "[H]/C(=C(/C([H])([H])[H])C([2H])([2H])[2H])C([H])([H])[H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "46223",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50540"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50540",
+    "sdf_path": "assets/sdf/50540.sdf"
   },
   {
     "cid": 50541,
@@ -93,7 +104,8 @@
     "canonical_isomeric_smiles": "[H]/C(=C(/C([H])([H])[H])C([2H])([2H])[2H])C([H])([H])C([H])([H])[H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "46224",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50541"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50541",
+    "sdf_path": "assets/sdf/50541.sdf"
   },
   {
     "cid": 50542,
@@ -101,7 +113,8 @@
     "canonical_isomeric_smiles": "[H]/C(=C(/C([H])([H])[H])C([2H])([2H])[2H])C([H])(C([H])([H])[H])C([H])([H])[H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "46225",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50542"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/50542",
+    "sdf_path": "assets/sdf/50542.sdf"
   },
   {
     "cid": 53360,
@@ -109,7 +122,8 @@
     "canonical_isomeric_smiles": "[2H]C1=C([2H])C([2H])=C2C(=C1[2H])C([2H])([2H])C([2H])([2H])C([2H])([2H])C2([2H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "48647",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/53360"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/53360",
+    "sdf_path": "assets/sdf/53360.sdf"
   },
   {
     "cid": 71502,
@@ -117,7 +131,8 @@
     "canonical_isomeric_smiles": "[2H]OC(=O)C(F)(F)F",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65351",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71502"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71502",
+    "sdf_path": "assets/sdf/71502.sdf"
   },
   {
     "cid": 71568,
@@ -125,7 +140,8 @@
     "canonical_isomeric_smiles": "[2H]OC([2H])([2H])[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65413",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71568"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71568",
+    "sdf_path": "assets/sdf/71568.sdf"
   },
   {
     "cid": 71583,
@@ -133,7 +149,8 @@
     "canonical_isomeric_smiles": "[2H]C(Cl)(Cl)Cl",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65420",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71583"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71583",
+    "sdf_path": "assets/sdf/71583.sdf"
   },
   {
     "cid": 71601,
@@ -141,7 +158,8 @@
     "canonical_isomeric_smiles": "[2H]C1=C([2H])C([2H])=C([2H])C([2H])=C1[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65432",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71601"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71601",
+    "sdf_path": "assets/sdf/71601.sdf"
   },
   {
     "cid": 71603,
@@ -149,7 +167,8 @@
     "canonical_isomeric_smiles": "[H]OC(=O)C1=C([2H])C([2H])=C([2H])C([2H])=C1[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "65434",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71603"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/71603",
+    "sdf_path": "assets/sdf/71603.sdf"
   },
   {
     "cid": 74861,
@@ -157,6 +176,7 @@
     "canonical_isomeric_smiles": "[2H]C1=C([2H])C([2H])=C(C([2H])([2H])[2H])C([2H])=C1[2H]",
     "source_file": "Compound_000000001_000500000.sdf.gz",
     "record_index": "68295",
-    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/74861"
+    "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/74861",
+    "sdf_path": "assets/sdf/74861.sdf"
   }
 ]

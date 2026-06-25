@@ -236,7 +236,7 @@ async function loadManifest() {
   const r = await fetch("assets/data/manifest.json", { cache: "no-store" });
   if (!r.ok) throw new Error("Failed to load manifest");
   manifest = await r.json();
-  totalPages = manifest.pages_published_in_demo;
+  totalPages = manifest.total_pages ?? manifest.pages_published_in_demo;
   return manifest;
 }
 
@@ -320,10 +320,26 @@ function createCard(mol, index) {
   return card;
 }
 
-// ── Load single structure for autoload ──
+// ── Local SDF helpers ──
+function getLocalSdfPath(mol) {
+  if (mol.sdf_path) return mol.sdf_path;
+  if (manifest && manifest.sdf_base_path) {
+    return manifest.sdf_base_path.replace(/\/$/, "") + "/" + mol.cid + ".sdf";
+  }
+  return "assets/sdf/" + mol.cid + ".sdf";
+}
+
+async function fetchText(url, timeoutMs) {
+  const r = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+  if (!r.ok) throw new Error("HTTP " + r.status);
+  return await r.text();
+}
+
+// ── Load single structure: local SDF first, then PubChem fallback ──
 async function loadStructureForOne(mol, index) {
   const cid = mol.cid;
   const viewerEl = document.getElementById("viewer-" + index);
+  if (!viewerEl) return;
   const loading = viewerEl.querySelector(".loading");
   const errEl = document.getElementById("error-" + index);
   errEl.style.display = "none";
@@ -344,53 +360,61 @@ async function loadStructureForOne(mol, index) {
     setCardStatus(index, "Failed", true);
   }
 
-  setLoadingStatus("Loading 3D structure\u2026");
-  setCardStatus(index, "Loading 3D\u2026", false);
+  function renderSdf(sdfData) {
+    try {
+      const viewer = $3Dmol.createViewer(viewerEl, {
+        backgroundColor: "white", antialias: true
+      });
+      viewer.addModel(sdfData, "sdf");
+      viewer.setStyle({}, { stick: { radius: 0.15, colorscheme: "Jmol" } });
+      viewer.zoomTo();
+      viewer.render();
+      loading.style.display = "none";
+      loadedCount++;
+      updateStatus();
+      setCardStatus(index, "Rendered", false);
+      return true;
+    } catch(e) {
+      showError("3D render error: " + e.message);
+      return false;
+    }
+  }
 
-  let sdfData = null;
-  let usedFallback = false;
-  const urls = [
+  // Step 1: Try local SDF
+  const localPath = getLocalSdfPath(mol);
+  setLoadingStatus("Loading local SDF\u2026");
+  setCardStatus(index, "Loading local\u2026", false);
+
+  try {
+    const localData = await fetchText(localPath, 10000);
+    if (localData && localData.includes("M  END")) {
+      if (renderSdf(localData)) return;
+    }
+  } catch(e) {
+    // local failed, continue to fallback
+  }
+
+  // Step 2: Try PubChem 3D
+  setLoadingStatus("Local unavailable, trying PubChem 3D\u2026");
+  setCardStatus(index, "Fetching 3D\u2026", false);
+
+  for (const url of [
     "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF?record_type=3d",
     "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + cid + "/record/SDF",
-  ];
-  for (const url of urls) {
+  ]) {
     try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(15000) });
-      if (r.ok) {
-        sdfData = await r.text();
-        if (sdfData && sdfData.includes("M  END")) {
-          if (usedFallback) setLoadingStatus("Rendering 2D\u2026");
-          break;
-        }
+      const sdfData = await fetchText(url, 15000);
+      if (sdfData && sdfData.includes("M  END")) {
+        if (renderSdf(sdfData)) return;
       }
     } catch(e) {
       // try next URL
     }
-    usedFallback = true;
-    setLoadingStatus("3D unavailable, trying 2D\u2026");
+    setLoadingStatus("3D unavailable, trying PubChem 2D\u2026");
     setCardStatus(index, "Fetching 2D\u2026", false);
   }
 
-  if (!sdfData) {
-    showError("PubChem structure unavailable");
-    return;
-  }
-
-  try {
-    const viewer = $3Dmol.createViewer(viewerEl, {
-      backgroundColor: "white", antialias: true
-    });
-    viewer.addModel(sdfData, "sdf");
-    viewer.setStyle({}, { stick: { radius: 0.15, colorscheme: "Jmol" } });
-    viewer.zoomTo();
-    viewer.render();
-    loading.style.display = "none";
-    loadedCount++;
-    updateStatus();
-    setCardStatus(index, "Rendered", false);
-  } catch(e) {
-    showError("3D render error: " + e.message);
-  }
+  showError("PubChem structure unavailable");
 }
 
 // ── Load 3D structure (public API, also called from old code path) ──
@@ -473,11 +497,13 @@ async function renderPage(page) {
   window._currentPageMolecules = molecules;
   totalToLoad = molecules.length;
 
+  const totalRecs = manifest.total_records ?? manifest.records_published_in_demo;
+  const recordLabel = manifest.total_records ? "records" : "demo records";
   infoBar.style.display = "flex";
   const startRecord = (page - 1) * manifest.page_size + 1;
-  const endRecord = Math.min(startRecord + molecules.length - 1, manifest.records_published_in_demo);
+  const endRecord = Math.min(startRecord + molecules.length - 1, totalRecs);
   pageInfo.textContent = "Page " + page + " of " + totalPages;
-  recordInfo.textContent = "Showing records " + startRecord + "\u2013" + endRecord + " of " + manifest.records_published_in_demo + " demo records";
+  recordInfo.textContent = "Showing records " + startRecord + "\u2013" + endRecord + " of " + totalRecs + " " + recordLabel;
 
   molecules.forEach(function(mol, i) {
     cardsEl.appendChild(createCard(mol, (page - 1) * manifest.page_size + i));

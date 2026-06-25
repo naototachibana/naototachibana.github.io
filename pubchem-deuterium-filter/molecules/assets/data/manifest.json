@@ -16,5 +16,9 @@
       "count": 20
     }
   ],
-  "note": "Proof-of-concept shard only. Full TSV and bulk results are not published."
+  "note": "Proof-of-concept shard only. Full TSV and bulk results are not published.",
+  "structure_source": "local-sdf-first",
+  "sdf_base_path": "assets/sdf",
+  "sdf_path_strategy": "record.sdf_path",
+  "sdf_records_published": 20
 }
