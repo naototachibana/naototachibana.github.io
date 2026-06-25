@@ -395,23 +395,37 @@ async function loadStructureForOne(mol, index) {
       check3Dmol();
       if (errEl) errEl.style.display = "none";
       if (loading) loading.style.display = "none";
+      // Remove old canvases
+      viewerEl.querySelectorAll("canvas, .viewer-3dmoljs").forEach(function(el) { el.remove(); });
 
       const viewer = $3Dmol.createViewer(viewerEl, {
         backgroundColor: "white",
         antialias: true
       });
-      viewer.addModel(sdfData, "sdf");
+      const model = viewer.addModel(sdfData, "sdf");
+
+      // Validate atom count from 3Dmol model
+      let atomCount = 0;
+      try { if (typeof model.selectedAtoms === "function") atomCount = model.selectedAtoms({}).length; }
+      catch(e) {}
+      if (!atomCount) {
+        try { if (typeof model.getAtoms === "function") atomCount = model.getAtoms().length; }
+        catch(e) {}
+      }
+      if (!atomCount || atomCount <= 0) {
+        throw new Error("3Dmol parsed zero atoms from SDF");
+      }
+
       viewer.setStyle({}, { stick: { radius: 0.15 } });
       viewer.zoomTo();
-      viewer.zoom(0.8);
       viewer.render();
 
       loadedCount++;
       updateStatus();
-      setCardStatus(index, "Rendered", false);
+      setCardStatus(index, "Rendered (" + atomCount + " atoms)", false);
       return true;
     } catch(e) {
-      showError("3D render error: " + e.message);
+      showError("Render error: " + e.message);
       return false;
     }
   }
